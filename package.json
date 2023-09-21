@@ -1,0 +1,29 @@
+{
+  "name": "silenzio",
+  "version": "0.0.1-alpha.6",
+  "dependencies": {},
+  "peerDependencies": {
+    "next": "^13.5.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.6.3",
+    "next": "^13.5.2",
+    "nextjs": "^0.0.3",
+    "rollup": "^3.29.2",
+    "rollup-plugin-dts": "^6.0.2",
+    "typescript": "^5.2.2"
+  },
+  "description": "Michele Bruno's utility library",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./next": "./src/next"
+  },
+
+  "author": "Michele Bruno",
+  "license": "ISC",
+  "type": "module"
+}

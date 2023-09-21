@@ -1,7 +1,9 @@
 {
   "name": "silenzio",
-  "version": "0.0.1-alpha8.9",
-  "dependencies": {},
+  "version": "0.0.2-alpha.0",
+  "dependencies": {
+    "cosmiconfig": "^8.3.6"
+  },
   "peerDependencies": {
     "next": "^13.5.2"
   },
@@ -9,12 +11,15 @@
     "dist"
   ],
   "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.5",
     "@types/node": "^20.6.3",
+    "jest": "^29.7.0",
     "next": "^13.5.2",
     "nextjs": "^0.0.3",
-    "rollup": "^3.29.2",
     "rollup-plugin-dts": "^6.0.2",
     "sanity": "^3.16.7",
+    "ts-jest": "^29.1.1",
     "typescript": "^5.2.2"
   },
   "description": "Michele Bruno's utility library",
@@ -22,7 +27,7 @@
   "module": "./dist/esm/index.ts",
   "types": "./dist/esm/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "prepublishOnly": "rm -rf dist && tsc && npm run build:cjs",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs"
   },

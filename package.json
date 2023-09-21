@@ -1,6 +1,6 @@
 {
   "name": "silenzio",
-  "version": "0.0.1-alpha-7",
+  "version": "0.0.1-alpha8.9",
   "dependencies": {},
   "peerDependencies": {
     "next": "^13.5.2"
@@ -14,6 +14,7 @@
     "nextjs": "^0.0.3",
     "rollup": "^3.29.2",
     "rollup-plugin-dts": "^6.0.2",
+    "sanity": "^3.16.7",
     "typescript": "^5.2.2"
   },
   "description": "Michele Bruno's utility library",
@@ -23,16 +24,27 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublishOnly": "rm -rf dist && tsc && npm run build:cjs",
-    "build:cjs":  "tsc --module commonjs --outDir dist/cjs"
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs"
   },
   "exports": {
     ".": "./dist/esm/index.js",
-    "./next": "./dist/esm/next/index.js"
+    "./next": "./dist/esm/next/index.js",
+    "./sanity": "./dist/esm/sanity/index.js"
   },
   "typesVersions": {
-    "*" :  {
-      ".":[ "./dist/esm/index.d.ts"],
-      "./next": ["./dist/esm/next/index.d.ts"]
+    "*": {
+      ".": [
+        "./dist/esm/index.d.ts",
+        "./dist/cjs/index.d.ts"
+      ],
+      "./next": [
+        "./dist/esm/next/index.d.ts",
+        "./dist/cjs/next/index.d.ts"
+      ],
+      "./sanity": [
+        "./dist/esm/sanity/index.d.ts",
+        "./dist/cjs/sanity/index.d.ts"
+      ]
     }
   },
   "author": "Michele Bruno",

@@ -1,10 +1,13 @@
 {
   "name": "silenzio",
-  "version": "0.0.1-alpha.6",
+  "version": "0.0.1-alpha-7",
   "dependencies": {},
   "peerDependencies": {
     "next": "^13.5.2"
   },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@types/node": "^20.6.3",
     "next": "^13.5.2",
@@ -14,16 +17,28 @@
     "typescript": "^5.2.2"
   },
   "description": "Michele Bruno's utility library",
-  "main": "./src/index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.ts",
+  "types": "./dist/esm/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "rm -rf dist && tsc && npm run build:cjs",
+    "build:cjs":  "tsc --module commonjs --outDir dist/cjs"
   },
   "exports": {
-    ".": "./src/index.js",
-    "./next": "./src/next"
+    ".": "./dist/esm/index.js",
+    "./next": "./dist/esm/next/index.js"
   },
-
+  "typesVersions": {
+    "*" :  {
+      ".":[ "./dist/esm/index.d.ts"],
+      "./next": ["./dist/esm/next/index.d.ts"]
+    }
+  },
   "author": "Michele Bruno",
   "license": "ISC",
-  "type": "module"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michelebruno/silenzio.git"
+  }
 }

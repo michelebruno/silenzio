@@ -1,7 +1,7 @@
-import {NextRequest, NextResponse} from "next/server";
+import {NextRequest} from "next/server";
 import {revalidateTag} from "next/cache";
 
-function GET(request) {
+function handler(request: NextRequest) {
 
   console.log('revalidateCache.ts: GET: request.url:', request.url)
 
@@ -19,4 +19,5 @@ function GET(request) {
 
 }
 
-export {GET}
+
+export default handler

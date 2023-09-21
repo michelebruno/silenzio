@@ -28,7 +28,7 @@
   "types": "./dist/esm/index.d.ts",
   "scripts": {
     "test": "jest",
-    "prepublishOnly": "rm -rf dist && tsc && npm run build:cjs",
+    "prepare": "rm -rf dist && tsc && npm run build:cjs",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs"
   },
   "exports": {

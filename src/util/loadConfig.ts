@@ -12,7 +12,5 @@ export function loadConfig(configPath?: string)  {
         result = explorerSync.search()
     } else result = explorerSync.load(configPath)
 
-    console.log(result?.config)
-
     return _.merge(result?.config, defaultConfig)
 }

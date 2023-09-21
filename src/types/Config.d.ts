@@ -1,10 +1,12 @@
 namespace Silenzio {
   interface Config {
-    hostname: string;
+    hostname: string | string[];
 
-    templates: {
+    test?: string;
+
+    templates?: {
       [key: string]: {
-        path: string;
+        path?: string;
         toUrl: (document: any) => string;
       }
     }

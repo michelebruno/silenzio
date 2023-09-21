@@ -1,6 +1,6 @@
 import {DocumentActionComponent, DocumentActionProps, DocumentActionsContext} from "sanity";
 
-export default function revalidateCache(originalAction: DocumentActionComponent, context: DocumentActionsContext) {
+export default function revalidateCacheOnAction(originalAction: DocumentActionComponent, context: DocumentActionsContext) {
 
   return (props: DocumentActionProps) => {
     const originalResult = originalAction(props)
@@ -9,18 +9,13 @@ export default function revalidateCache(originalAction: DocumentActionComponent,
       onHandle: async () => {
 
         if (originalResult?.onHandle) originalResult.onHandle()
-
         const params = new URLSearchParams()
-        params.set('secret', process.env.SANITY_STUDIO_REVALIDATE_CACHE_SECRET || '')
+        params.set('secret', process.env.SANITY_STUDIO_SILENZIO_REVALIDATE_CACHE_SECRET || '')
         params.set('tags', context.schemaType)
 
-        for (const url of [
-          // 'https;//www.skprogetti.com',
-          'https://skp.michelebruno.co',
-          'http://localhost:3000',
-          // 'https://www.skprogetti.it',
-          'https://skp-git-staging-michelebruno.vercel.app/'
-        ]) {
+        console.log("Trying to revalidate cache", process.env.SANITY_STUDIO_SILENZIO_DOMAINS, process.env.SANITY_STUDIO_SILENZIO_REVALIDATE_CACHE_SECRET, )
+
+        for (const url of process.env.SANITY_STUDIO_SILENZIO_DOMAINS?.split(',') || []) {
 
           let revalidateApiUrl = new URL(url)
 

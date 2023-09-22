@@ -1,5 +1,6 @@
 import revalidateCache from "./revalidateCache";
 
+jest.mock('../utils/loadConfig')
 jest.mock('next/cache', () => ({
   ...jest.requireActual('next/cache'),
   revalidateTag: jest.fn()
@@ -7,15 +8,18 @@ jest.mock('next/cache', () => ({
 
 import {describe} from "@jest/globals";
 import {NextRequest} from "next/server";
-import {Blob} from "buffer";
-import {Request} from "next/dist/compiled/@edge-runtime/primitives";
-import {RequestCookies} from "next/dist/compiled/@edge-runtime/cookies";
-import {NextURL} from "next/dist/server/web/next-url";
+import speak from "../utils/speak";
 
 
 describe("NextJS revalidateCache", () => {
 
   const request: Partial<NextRequest> = {
+    json(): Promise<any> {
+      return Promise.resolve({
+        secret: speak('cache.secret'),
+        tags: 'test',
+      })
+    },
     get url(): string {
       const url = new URL('https://www.example.com')
       url.pathname = '/api/revalidate-cache'
@@ -28,5 +32,9 @@ describe("NextJS revalidateCache", () => {
     }
 
   }
-  revalidateCache(request as NextRequest)
+
+  test('revalidateTag is called', async () => {
+    await revalidateCache(request as NextRequest)
+    expect(require('next/cache').revalidateTag).toBeCalled()
+  })
 })

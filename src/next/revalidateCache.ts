@@ -1,7 +1,7 @@
 import {NextRequest} from "next/server";
 import {revalidatePath, revalidateTag} from "next/cache";
-import speak from "../util/speak";
-import getDocumentUrl from "../util/getDocumentUrl";
+import speak from "../utils/speak";
+import getDocumentUrl from "../utils/getDocumentUrl";
 
 async function handler(request: NextRequest) {
 

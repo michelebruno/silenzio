@@ -1,12 +1,8 @@
 {
   "name": "silenzio",
-  "version": "0.0.2-alpha.2",
+  "version": "0.0.2-alpha.3",
   "dependencies": {
-    "cosmiconfig": "^8.3.6",
-    "fs": "^0.0.1-security"
-  },
-  "peerDependencies": {
-    "next": "^13.5.2"
+    "lodash": "^4.17.21"
   },
   "files": [
     "dist"
@@ -30,7 +26,8 @@
   "scripts": {
     "test": "jest",
     "prepare": "rm -rf dist && tsc && npm run build:cjs",
-    "build:cjs": "tsc --module commonjs --outDir dist/cjs"
+    "build:esm": "tsc --module commonjs --outDir dist/esm --project tsconfig.build.json",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs --project tsconfig.build.json"
   },
   "exports": {
     ".": "./dist/esm/index.js",
@@ -40,16 +37,13 @@
   "typesVersions": {
     "*": {
       ".": [
-        "./dist/esm/index.d.ts",
-        "./dist/cjs/index.d.ts"
+        "./dist/esm/index.d.ts"
       ],
       "./next": [
-        "./dist/esm/next/index.d.ts",
-        "./dist/cjs/next/index.d.ts"
+        "./dist/esm/next/index.d.ts"
       ],
       "./sanity": [
-        "./dist/esm/sanity/index.d.ts",
-        "./dist/cjs/sanity/index.d.ts"
+        "./dist/esm/sanity/index.d.ts"
       ]
     }
   },

@@ -1,6 +1,5 @@
 import {loadConfig} from "./loadConfig";
 import _ from "lodash";
-import {Silenzio} from "../default.config";
 
 
 type NestedKeyOf<ObjectType extends object> =

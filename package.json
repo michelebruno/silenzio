@@ -1,8 +1,9 @@
 {
   "name": "silenzio",
-  "version": "0.0.2-alpha.0",
+  "version": "0.0.2-alpha.2",
   "dependencies": {
-    "cosmiconfig": "^8.3.6"
+    "cosmiconfig": "^8.3.6",
+    "fs": "^0.0.1-security"
   },
   "peerDependencies": {
     "next": "^13.5.2"
@@ -24,7 +25,7 @@
   },
   "description": "Michele Bruno's utility library",
   "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.ts",
+  "module": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
   "scripts": {
     "test": "jest",

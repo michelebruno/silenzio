@@ -1,5 +1,8 @@
+'use server';
+
 import {loadConfig} from "./loadConfig";
-export default function getPathname(document: any, type?:string) {
+
+export default function getDocumentUrl(document: any, type?:string, configObject?: Silenzio.Config) {
 
   let postType;
 
@@ -12,7 +15,16 @@ export default function getPathname(document: any, type?:string) {
     // Throw an Error if we can't determine the type
     throw new Error('Could not determine the type of the document. It must be present in the document or passed as an argument.');
   }
-  
-  return loadConfig().templates[postType].toUrl(document);
+
+  let config = configObject;
+  if (!config) {
+    config = loadConfig();
+  }
+
+  if (config.templates && config.templates[postType] ) {
+    return config.templates[postType]?.toUrl(document);
+  }
+
+  throw new Error(`Could not find a template for the post type ${postType}.`);
 
 }

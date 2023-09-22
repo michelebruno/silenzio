@@ -7,22 +7,28 @@ export default function revalidateCacheOnAction(originalAction: DocumentActionCo
     return {
       ...originalResult,
       onHandle: async () => {
-
         if (originalResult?.onHandle) originalResult.onHandle()
-        const params = new URLSearchParams()
-        params.set('secret', process.env.SANITY_STUDIO_SILENZIO_REVALIDATE_CACHE_SECRET || '')
-        params.set('tags', context.schemaType)
 
-        console.log("Trying to revalidate cache", process.env.SANITY_STUDIO_SILENZIO_DOMAINS, process.env.SANITY_STUDIO_SILENZIO_REVALIDATE_CACHE_SECRET, )
+        const body = {
+          secret: process.env.SANITY_STUDIO_SILENZIO_REVALIDATE_CACHE_SECRET || '',
+          tags: context.schemaType,
+          document: {
+            _id: context.documentId,
+            _type: context.schemaType
+          }
+        }
 
         for (const url of process.env.SANITY_STUDIO_SILENZIO_DOMAINS?.split(',') || []) {
 
           let revalidateApiUrl = new URL(url)
 
           revalidateApiUrl.pathname = '/api/revalidate-cache'
-          revalidateApiUrl.search = params.toString()
 
-          await fetch(revalidateApiUrl.toString())
+          await fetch(revalidateApiUrl.toString(), {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: {'Content-Type': 'application/json'}
+          })
         }
       },
     }

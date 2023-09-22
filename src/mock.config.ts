@@ -1,8 +1,9 @@
+
 const config: Silenzio.Config = {
   hostname: 'https://example.com',
   templates: {
     project: {
-      toUrl: (document) => `/projects/${document.slug.current}`,
+      toUrl: (document: any) => `/projects/${document.slug.current}`,
     }
   }
 }

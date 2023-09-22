@@ -1,8 +1,10 @@
 import {loadConfig} from "./loadConfig";
-import getPathname from "./getPathname";
+import getDocumentUrl from "./getDocumentUrl";
 import path from "path";
+import {Silenzio} from "../default.config";
 
 const config = loadConfig(path.resolve(__dirname, '../mock.config.ts'))
+
 
 
 test('Config loads right', () => {

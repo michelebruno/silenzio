@@ -1,4 +1,4 @@
-import {NextRequest, NextResponse} from "next/server";
+import {NextRequest} from "next/server";
 import {revalidatePath, revalidateTag} from "next/cache";
 import speak from "../utils/speak";
 import getDocumentUrl from "../utils/getDocumentUrl";

@@ -1,4 +1,4 @@
-import {NextRequest} from "next/server";
+import {NextRequest, NextResponse} from "next/server";
 import {revalidatePath, revalidateTag} from "next/cache";
 import speak from "../utils/speak";
 import getDocumentUrl from "../utils/getDocumentUrl";
@@ -28,7 +28,7 @@ async function handler(request: NextRequest) {
   }
 
   if (data.secret !== speak('cache.secret')) {
-    return new Response('Unauthorized', {status: 401})
+    return  Response.json('Unauthorized', {status: 401})
   }
 
   const {tags} = data
@@ -39,7 +39,7 @@ async function handler(request: NextRequest) {
     if (getDocumentUrl(data.documentId, data.tags)) revalidatePath(getDocumentUrl(data.documentId, data.tags))
   }
 
-  return new Response(JSON.stringify({message: 'Successfully revalidated tags', tags}), {status: 200})
+  return  Response.json({message: 'Successfully revalidated tags', tags}, {status: 200})
 
 }
 

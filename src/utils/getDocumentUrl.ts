@@ -1,7 +1,8 @@
 
 import {loadConfig} from "./loadConfig";
+import speak from "./speak";
 
-export default function getDocumentUrl(document: any, type?:string, configObject?: Silenzio.Config) {
+export default function getDocumentUrl(document: any, type?:string) {
 
   let postType;
 
@@ -15,13 +16,10 @@ export default function getDocumentUrl(document: any, type?:string, configObject
     throw new Error('Could not determine the type of the document. It must be present in the document or passed as an argument.');
   }
 
-  let config = configObject;
-  if (!config) {
-    config = loadConfig();
-  }
+  const templates  = speak('templates')
 
-  if (config.templates && config.templates[postType] ) {
-    return config.templates[postType]?.toUrl(document);
+  if ( templates && templates[postType] ) {
+    return  templates[postType]?.toUrl(document);
   }
 
   throw new Error(`Could not find a template for the post type ${postType}.`);

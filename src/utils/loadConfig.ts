@@ -1,8 +1,8 @@
 import defaultConfig from "../default.config";
 import _ from "lodash";
-import path from "path";
-import * as fs from "fs";
 
+// @ts-ignore
+import appConfig from 'silenzio-config'
 
 export function searchConfig() {
   const moduleName = 'silenzio'
@@ -13,18 +13,28 @@ export function searchConfig() {
     `${process.cwd()}/${moduleName}.config.cjs`,
   ]
 
+  let res ;
+
+
   for (const searchInThisPath of searchInThesePaths) {
 
+    try {
+      let f = require.resolve(searchInThisPath)
 
-    const filenamePath = path.resolve(process.cwd(), searchInThisPath )
+      try {
+        res = require(f)
 
-    if (fs.existsSync(filenamePath)) {
-      return require.resolve(/* webpackIgnore: true */filenamePath )
+        if (res) break;
+
+      } catch (e) {
+      }
+    } catch (e) {
+
     }
 
   }
 
-  return null;
+  return res;
 
 }
 
@@ -32,11 +42,18 @@ export function loadConfig(configOrPath?: string | Silenzio.Config): Silenzio.Co
 
   let result;
 
-  if (!configOrPath)
-    result = searchConfig()
-  else if (typeof configOrPath === 'object')
-    result = configOrPath
+  if (!configOrPath) {
+    if (!appConfig) {
 
+      result = searchConfig()
+      console.log("Result", result)
+    } else {
+      result = appConfig
+    }
+
+  } else if (typeof configOrPath === 'object') {
+    result = configOrPath
+  }
   return _.merge(result as Silenzio.Config, defaultConfig as Silenzio.Config)
 }
 

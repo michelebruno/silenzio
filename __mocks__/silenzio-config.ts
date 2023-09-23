@@ -1,4 +1,4 @@
-
+// @ts-ignore
 const config: Silenzio.Config = {
   isMock: true,
   hostname: 'https://example.com',
@@ -9,11 +9,4 @@ const config: Silenzio.Config = {
   }
 }
 
-function loadConfig(_: Silenzio.Config | string) {
-  return jest.requireActual('../loadConfig').loadConfig(config)
-}
-
-module.exports = {
-  loadConfig,
-  searchConfig : jest.requireActual('../loadConfig').searchConfig
-}
+export default config

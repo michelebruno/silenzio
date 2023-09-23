@@ -4,6 +4,11 @@ import _ from "lodash";
 // @ts-ignore
 import appConfig from 'silenzio-config'
 
+
+if (!appConfig) {
+  console.warn("You probably forgot to add the silenzio-config alias to your webpack config")
+}
+
 export function searchConfig() {
   const moduleName = 'silenzio'
   const searchInThesePaths = [
@@ -13,7 +18,7 @@ export function searchConfig() {
     `${process.cwd()}/${moduleName}.config.cjs`,
   ]
 
-  let res ;
+  let res;
 
 
   for (const searchInThisPath of searchInThesePaths) {
@@ -46,7 +51,6 @@ export function loadConfig(configOrPath?: string | Silenzio.Config): Silenzio.Co
     if (!appConfig) {
 
       result = searchConfig()
-      console.log("Result", result)
     } else {
       result = appConfig
     }

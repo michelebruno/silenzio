@@ -12,7 +12,7 @@ export default function revalidateCacheOnAction(originalAction: DocumentActionCo
 
 
         const body = {
-          secret: process.env.SANITY_STUDIO_SILENZIO_REVALIDATE_CACHE_SECRET || '',
+          secret: speak('cache.secret'),
           tags: context.schemaType,
           document: {
             _id: context.documentId,

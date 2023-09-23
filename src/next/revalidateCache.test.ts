@@ -1,6 +1,6 @@
 import revalidateCache from "./revalidateCache";
 
-jest.mock('../utils/loadConfig')
+jest.mock('silenzio-config')
 jest.mock('next/cache', () => ({
   ...jest.requireActual('next/cache'),
   revalidateTag: jest.fn()

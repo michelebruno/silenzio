@@ -1,4 +1,4 @@
-jest.mock("./loadConfig");
+jest.mock("silenzio-config");
 
 import getDocumentUrl from "./getDocumentUrl";
 

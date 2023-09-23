@@ -1,4 +1,5 @@
 import {DocumentActionComponent, DocumentActionProps, DocumentActionsContext} from "sanity";
+import speak from "../utils/speak";
 
 export default function revalidateCacheOnAction(originalAction: DocumentActionComponent, context: DocumentActionsContext) {
 
@@ -9,6 +10,7 @@ export default function revalidateCacheOnAction(originalAction: DocumentActionCo
       onHandle: async () => {
         if (originalResult?.onHandle) originalResult.onHandle()
 
+
         const body = {
           secret: process.env.SANITY_STUDIO_SILENZIO_REVALIDATE_CACHE_SECRET || '',
           tags: context.schemaType,
@@ -18,11 +20,14 @@ export default function revalidateCacheOnAction(originalAction: DocumentActionCo
           }
         }
 
+       //  const searchParams = new URLSearchParams(body)
         for (const url of process.env.SANITY_STUDIO_SILENZIO_DOMAINS?.split(',') || []) {
 
           let revalidateApiUrl = new URL(url)
 
           revalidateApiUrl.pathname = '/api/revalidate-cache'
+          // revalidateApiUrl.search = searchParams.toString()
+
 
           await fetch(revalidateApiUrl.toString(), {
             method: 'POST',

@@ -1,20 +1,24 @@
 {
   "name": "silenzio",
-  "version": "0.0.2-alpha.5",
+  "version": "0.0.2-alpha.6",
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "next": "^13.5.1"
   },
   "type": "module",
   "files": [
     "dist"
   ],
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.5",
     "@types/node": "^20.6.3",
     "jest": "^29.7.0",
-    "next": "^13.5.2",
-    "nextjs": "^0.0.3",
     "rollup-plugin-dts": "^6.0.2",
     "sanity": "^3.16.7",
     "ts-jest": "^29.1.1",
@@ -26,9 +30,10 @@
   "types": "./types.d.ts",
   "scripts": {
     "test": "jest",
-    "prepare": "rm -rf dist && tsc && npm run build:cjs",
-    "build:esm": "tsc --module commonjs --outDir dist/esm --project tsconfig.build.json",
-    "build:cjs": "tsc --module commonjs --outDir dist/cjs --project tsconfig.build.json"
+    "dev": "yarn build:esm --watch",
+    "prepare": "rm -rf dist && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc --outDir dist/esm --project tsconfig.build.json",
+    "build:cjs": "tsc --outDir dist/cjs --project tsconfig.build.json --module commonjs"
   },
   "exports": {
     ".": "./dist/esm/index.js",

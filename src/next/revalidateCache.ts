@@ -5,7 +5,6 @@ import getDocumentUrl from "../utils/getDocumentUrl";
 
 async function handler(request: NextRequest) {
 
-
   const data = {
     secret: null as string | null,
     tags: null as string | null,
@@ -21,6 +20,7 @@ async function handler(request: NextRequest) {
     data.documentId = body.documentId;
 
   } else {
+
     const {searchParams: query} = new URL(request.url)
     data.secret = query.get('secret')
     data.tags = query.get('tags')
@@ -39,7 +39,7 @@ async function handler(request: NextRequest) {
     if (getDocumentUrl(data.documentId, data.tags)) revalidatePath(getDocumentUrl(data.documentId, data.tags))
   }
 
-  return new Response(JSON.stringify({message: 'Successfully revalidated tags', tags}), {status: 200,})
+  return new Response(JSON.stringify({message: 'Successfully revalidated tags', tags}), {status: 200})
 
 }
 

@@ -1,5 +1,5 @@
-export * as next from './next'
-export * as sanity from './sanity'
+/// <reference path="../types.d.ts" />
+export namespace Silenzio {
 
-export {default as getPathname} from './utils/getDocumentUrl'
+}
 

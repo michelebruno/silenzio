@@ -1,9 +1,10 @@
 {
   "name": "silenzio",
-  "version": "0.0.2-alpha.3",
+  "version": "0.0.2-alpha.5",
   "dependencies": {
     "lodash": "^4.17.21"
   },
+  "type": "module",
   "files": [
     "dist"
   ],
@@ -22,7 +23,7 @@
   "description": "Michele Bruno's utility library",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
-  "types": "./dist/esm/index.d.ts",
+  "types": "./types.d.ts",
   "scripts": {
     "test": "jest",
     "prepare": "rm -rf dist && tsc && npm run build:cjs",
@@ -32,10 +33,11 @@
   "exports": {
     ".": "./dist/esm/index.js",
     "./next": "./dist/esm/next/index.js",
-    "./sanity": "./dist/esm/sanity/index.js"
+    "./sanity": "./dist/esm/sanity/index.js",
+    "./utils": "./dist/esm/utils/index.js"
   },
   "typesVersions": {
-    "*": {
+    ".": {
       ".": [
         "./dist/esm/index.d.ts"
       ],
@@ -44,6 +46,9 @@
       ],
       "./sanity": [
         "./dist/esm/sanity/index.d.ts"
+      ],
+      "./utils": [
+        "./dist/esm/utils/index.d.ts"
       ]
     }
   },

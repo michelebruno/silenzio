@@ -7,10 +7,10 @@ import * as fs from "fs";
 export function searchConfig() {
   const moduleName = 'silenzio'
   const searchInThesePaths = [
-    `${moduleName}.config.js`,
-    `${moduleName}.config.ts`,
-    `${moduleName}.config.mjs`,
-    `${moduleName}.config.cjs`,
+    `${process.cwd()}/${moduleName}.config.js`,
+    `${process.cwd()}/${moduleName}.config.ts`,
+    `${process.cwd()}/${moduleName}.config.mjs`,
+    `${process.cwd()}/${moduleName}.config.cjs`,
   ]
 
   for (const searchInThisPath of searchInThesePaths) {
@@ -19,12 +19,13 @@ export function searchConfig() {
     const filenamePath = path.resolve(process.cwd(), searchInThisPath )
 
     if (fs.existsSync(filenamePath)) {
-      return require(filenamePath)
+      return require.resolve(/* webpackIgnore: true */filenamePath )
     }
 
   }
 
   return null;
+
 }
 
 export function loadConfig(configOrPath?: string | Silenzio.Config): Silenzio.Config {

@@ -17,8 +17,16 @@ type DeepKeys<T> = T extends object
   : never;
 
 type NestedKeyOfConfig = DeepKeys<Silenzio.Config>;
+
+const requiredPaths: NestedKeyOfConfig[] = ['cache.secret'];
+
 export default function speak(path: NestedKeyOfConfig): never {
   const config = loadConfig();
 
-  return _.property(path)(config) as never;
+  const prop = _.property(path)(config) as never;
+
+  if (!prop && requiredPaths.includes(path))
+    console.warn(`Required config property ${path} is null or undefined.`);
+
+  return prop;
 }

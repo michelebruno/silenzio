@@ -1,4 +1,5 @@
 import revalidateCache from './revalidateCache';
+import nextCache from 'next/cache';
 
 jest.mock('silenzio-config');
 jest.mock('next/cache', () => ({
@@ -12,7 +13,7 @@ import speak from '../utils/speak';
 
 describe('NextJS revalidateCache', () => {
   const request: Partial<NextRequest> = {
-    json(): Promise<any> {
+    json(): Promise<object> {
       return Promise.resolve({
         secret: speak('cache.secret'),
         tags: 'test',
@@ -31,8 +32,11 @@ describe('NextJS revalidateCache', () => {
   };
 
   test('revalidateTag is called', async () => {
+    const spy = jest.spyOn(nextCache, 'revalidateTag');
+
     await revalidateCache(request as NextRequest);
-    expect(require('next/cache').revalidateTag).toBeCalled();
+
+    expect(spy).toBeCalled();
   });
 
   test("doesn't allow GET requests", () => {

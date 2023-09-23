@@ -25,7 +25,7 @@ describe('Config loader', () => {
 describe.skip('Mock config', () => {
   // Doens't work since jest doesn't allow to mock require.resolve
   test('is found', () => {
-    const spy = jest.spyOn(require('process'), 'cwd');
+    const spy = jest.spyOn(process, 'cwd');
 
     spy.mockReturnValue('/Users/michelebruno/coding/skp');
 

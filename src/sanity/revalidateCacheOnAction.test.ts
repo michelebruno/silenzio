@@ -1,32 +1,28 @@
 import revalidateCacheOnAction from './revalidateCacheOnAction';
-import {
-  DocumentActionComponent,
-  DocumentActionProps,
-  DocumentActionsContext,
-  SanityClient,
-  SourceClientOptions,
-} from 'sanity';
+import type { DocumentActionComponent, DocumentActionsContext } from 'sanity';
 import Mock = jest.Mock;
-import { fetch } from 'next/dist/compiled/@edge-runtime/primitives';
 import speak from '../utils/speak';
 
-// @ts-ignore
-
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    json: () => Promise.resolve(),
-  })
-);
+global.fetch = jest.fn().mockImplementation(async () => {
+  return {
+    json: jest.fn(() => {
+      return {
+        message: 'Successfully revalidated tags',
+        tags: 'test',
+      };
+    }),
+  };
+});
 
 describe('Sanity revalidateCacheOnAction', () => {
   const mockOriginalAction: Mock<DocumentActionComponent> = jest.fn(() => {
-    return (p) => ({
+    return () => ({
       onHandle: jest.fn(),
       label: 'publish',
     });
   });
 
-  // @ts-ignore
+  // @ts-expect-error Missing props we don't need for the test
   const mockContext: DocumentActionsContext = {
     dataset: 'prodution',
 
@@ -35,8 +31,6 @@ describe('Sanity revalidateCacheOnAction', () => {
     documentId: '123',
     schemaType: 'test',
   };
-
-  // @ts-ignore
 
   test('is a test', () => {
     expect(true).toBe(true);
@@ -47,20 +41,19 @@ describe('Sanity revalidateCacheOnAction', () => {
   });
 
   test('works properly', async () => {
-    // @ts-ignore
     const returnedFunction = revalidateCacheOnAction(
+      // @ts-expect-error Props should be DocumentActionProps
       mockOriginalAction,
       mockContext
     );
 
     expect(typeof returnedFunction).toBe('function');
 
-    // @ts-ignore
+    // @ts-expect-error Props should be DocumentActionProps
     const result = returnedFunction({});
 
     expect(mockOriginalAction).toBeCalled();
 
-    // @ts-ignore
     await result.onHandle();
 
     expect(jest.mocked(global.fetch).mock.calls[0][0]).not.toHaveProperty(
@@ -68,6 +61,25 @@ describe('Sanity revalidateCacheOnAction', () => {
       'GET'
     );
 
-    expect(global.fetch).toBeCalledTimes(speak('cache.domains').length);
+    const requestBody: {
+      document: {
+        _id: string;
+        _type: string;
+      };
+      tags: string;
+      secret: string;
+    } = JSON.parse(jest.mocked(global.fetch).mock.calls[0][1]?.body as string);
+
+    expect(requestBody).not.toBeUndefined();
+    expect(requestBody?.secret).not.toBeUndefined();
+    expect(requestBody?.secret).not.toBeNull();
+    expect(requestBody?.tags).toBe(mockContext.schemaType);
+
+    expect(requestBody?.document?._id).toBe(mockContext.documentId);
+    expect(requestBody?.document?._type).toBe(mockContext.schemaType);
+
+    expect(global.fetch).toBeCalledTimes(
+      (speak('cache.domains') as URL[]).length
+    );
   });
 });

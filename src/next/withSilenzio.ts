@@ -9,7 +9,7 @@ export default function (config: NextConfig) {
 
       c.resolve.alias = {
         'silenzio-config': require.resolve(
-          process.cwd() + '/silenzio.config.js'
+          `${process.cwd()}/silenzio.config.js`
         ),
       };
       return c;

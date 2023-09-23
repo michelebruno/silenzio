@@ -1,26 +1,35 @@
 import { loadConfig } from './loadConfig';
 import _ from 'lodash';
+import { Config } from '../default.config';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-type NestedKeyOf<ObjectType extends object> = {
-  [Key in keyof ObjectType & (string | number)]: ObjectType[Key] extends object
-    ? `${Key}` | `${Key}.${NestedKeyOf<ObjectType[Key]>}`
-    : `${Key}`;
-}[keyof ObjectType & (string | number)];
+type ExtractPropertyFromPath<
+  ObjectType extends Record<string, any>,
+  Path extends string,
+> = Path extends `${infer FirstPart}.${infer Rest}` // Se è a.b
+  ? FirstPart extends keyof Required<ObjectType>
+    ? Required<ObjectType>[FirstPart] extends object
+      ? ExtractPropertyFromPath<Required<ObjectType>[FirstPart], Rest>
+      : Required<ObjectType>[FirstPart]
+    : keyof ObjectType[FirstPart]
+  : Path extends keyof Required<ObjectType>
+  ? Required<ObjectType>[Path]
+  : never;
 
-type DeepKeys<T> = T extends object
+type TypeToDotNotation<T> = T extends object
   ? {
       [K in keyof T]-?: K extends string | number
-        ? `${K}` | `${K}.${DeepKeys<T[K]>}`
+        ? `${K}` | `${K}.${TypeToDotNotation<T[K]>}`
         : never;
     }[keyof T]
   : never;
 
-type NestedKeyOfConfig = DeepKeys<Silenzio.Config>;
+type NestedKeyOfConfig = TypeToDotNotation<Config>;
 
 const requiredPaths: NestedKeyOfConfig[] = ['cache.secret'];
 
-export default function speak(path: NestedKeyOfConfig): never {
+export default function speak<T extends NestedKeyOfConfig>(
+  path: T
+): ExtractPropertyFromPath<Config, T> {
   const config = loadConfig();
 
   const prop = _.property(path)(config) as never;

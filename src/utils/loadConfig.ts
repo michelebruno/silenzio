@@ -1,7 +1,7 @@
 import defaultConfig from '../default.config';
 import _ from 'lodash';
 
-// @ts-expect-error Can't find module 'silenzio-config'
+// @ts-expect-error Since it must be aliased or mocked
 import appConfig from 'silenzio-config';
 
 if (!appConfig) {

@@ -1,9 +1,17 @@
-export declare const HTTP_METHODS: readonly ["GET", "HEAD", "OPTIONS", "POST", "PUT", "DELETE", "PATCH"];
+export declare const HttpMethods: readonly [
+  'GET',
+  'HEAD',
+  'OPTIONS',
+  'POST',
+  'PUT',
+  'DELETE',
+  'PATCH',
+];
 /**
  * A type representing the valid HTTP methods that can be implemented by
  * Next.js's Custom App Routes.
  */
-export type HTTP_METHOD = (typeof HTTP_METHODS)[number];
+export type HttpMethod = (typeof HttpMethods)[number];
 
 export type Config = {
   hostname: string | string[];
@@ -13,8 +21,8 @@ export type Config = {
   templates?: {
     [key: string]: {
       path?: string;
-      toUrl: (document: any) => string;
-    }
+      toUrl: (document: Silenzio.Document) => string;
+    };
   };
 
   cache?: {
@@ -41,20 +49,24 @@ export type Config = {
      *
      * @defaultValue HTTP_METHOD.POST
      */
-    method?: HTTP_METHOD;
-  },
-}
-
+    method?: HttpMethod;
+  };
+};
 
 const silenzioConfigDefault: Silenzio.Config = {
   wasDefaultConfigLoaded: true,
   hostname: 'https://example.com',
   cache: {
-    secret: process.env.SANITY_STUDIO_SILENZIO_REVALIDATE_CACHE_SECRET || process.env.SILENZIO_REVALIDATE_CACHE_SECRET,
-    domains: process.env.SANITY_STUDIO_SILENZIO_DOMAINS?.split(',') || process.env.SILENZIO_DOMAINS?.split(',') || [],
+    secret:
+      process.env.SANITY_STUDIO_SILENZIO_REVALIDATE_CACHE_SECRET ||
+      process.env.SILENZIO_REVALIDATE_CACHE_SECRET,
+    domains:
+      process.env.SANITY_STUDIO_SILENZIO_DOMAINS?.split(',') ||
+      process.env.SILENZIO_DOMAINS?.split(',') ||
+      [],
     revalidateApiPath: '/api/revalidate-cache',
     method: 'POST',
-  }
-}
+  },
+};
 
-export default silenzioConfigDefault
+export default silenzioConfigDefault;

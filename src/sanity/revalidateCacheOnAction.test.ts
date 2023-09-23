@@ -1,73 +1,73 @@
-import revalidateCacheOnAction from './revalidateCacheOnAction'
+import revalidateCacheOnAction from './revalidateCacheOnAction';
 import {
   DocumentActionComponent,
   DocumentActionProps,
   DocumentActionsContext,
   SanityClient,
-  SourceClientOptions
-} from "sanity";
+  SourceClientOptions,
+} from 'sanity';
 import Mock = jest.Mock;
-import {fetch} from "next/dist/compiled/@edge-runtime/primitives";
-import speak from "../utils/speak";
+import { fetch } from 'next/dist/compiled/@edge-runtime/primitives';
+import speak from '../utils/speak';
 
 // @ts-ignore
 
-global.fetch = jest.fn(() => Promise.resolve({
-  json: () => Promise.resolve()
-}));
-
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () => Promise.resolve(),
+  })
+);
 
 describe('Sanity revalidateCacheOnAction', () => {
-
   const mockOriginalAction: Mock<DocumentActionComponent> = jest.fn(() => {
     return (p) => ({
       onHandle: jest.fn(),
       label: 'publish',
-    })
-  })
+    });
+  });
 
   // @ts-ignore
   const mockContext: DocumentActionsContext = {
+    dataset: 'prodution',
 
-    dataset: "prodution",
-
-    projectId: "",
+    projectId: '',
 
     documentId: '123',
-    schemaType: 'test'
-
-  }
+    schemaType: 'test',
+  };
 
   // @ts-ignore
 
   test('is a test', () => {
-    expect(true).toBe(true)
-  })
+    expect(true).toBe(true);
+  });
 
   test('is a function', () => {
-    expect(typeof revalidateCacheOnAction).toBe('function')
-  })
+    expect(typeof revalidateCacheOnAction).toBe('function');
+  });
 
   test('works properly', async () => {
+    // @ts-ignore
+    const returnedFunction = revalidateCacheOnAction(
+      mockOriginalAction,
+      mockContext
+    );
+
+    expect(typeof returnedFunction).toBe('function');
 
     // @ts-ignore
-    const returnedFunction = revalidateCacheOnAction(mockOriginalAction, mockContext)
+    const result = returnedFunction({});
 
-    expect(typeof returnedFunction).toBe('function')
-
-    // @ts-ignore
-    const result = returnedFunction({})
-
-    expect(mockOriginalAction).toBeCalled()
+    expect(mockOriginalAction).toBeCalled();
 
     // @ts-ignore
-    await  result.onHandle()
+    await result.onHandle();
 
-    expect(jest.mocked(global.fetch).mock.calls[0][0]).not.toHaveProperty('method', 'GET')
+    expect(jest.mocked(global.fetch).mock.calls[0][0]).not.toHaveProperty(
+      'method',
+      'GET'
+    );
 
-    expect(global.fetch).toBeCalledTimes(speak('cache.domains').length)
-
-  })
-
-
-})
+    expect(global.fetch).toBeCalledTimes(speak('cache.domains').length);
+  });
+});

@@ -1,2 +1,1 @@
-
-export {default as revalidateCacheOnAction} from "./revalidateCacheOnAction";
+export { default as revalidateCacheOnAction } from './revalidateCacheOnAction';

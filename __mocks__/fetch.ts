@@ -3,11 +3,10 @@ const fetch = jest.fn(async () => {
     json: jest.fn(() => {
       return {
         message: 'Successfully revalidated tags',
-        tags: 'test'
-      }
-    })
-  }
-})
+        tags: 'test',
+      };
+    }),
+  };
+});
 
-
-export default fetch
+export default fetch;

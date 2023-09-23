@@ -27,7 +27,7 @@ export type Config = {
      *
      * @defaultValue process.env.SANITY_STUDIO_SILENZIO_DOMAINS?.split(',') || process.env.SILENZIO_DOMAINS?.split(',') || []
      */
-    domains?: string[];
+    domains?: URL[];
     /**
      * The path to the API endpoint that revalidates the cache
      *

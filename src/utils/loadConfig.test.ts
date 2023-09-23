@@ -14,8 +14,10 @@ describe('Config loader', () => {
     // Check if default config is loaded
     expect(config).toHaveProperty('wasDefaultConfigLoaded', true)
   })
-
-
+  test('loads object config', () => {
+    // Check if default config is loaded
+    expect(loadConfig({loadsObjects: true})).toHaveProperty('loadsObjects', true)
+  })
 })
 
 

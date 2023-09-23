@@ -20,11 +20,7 @@ async function handler(request: NextRequest) {
     data.documentId = body.documentId;
 
   } else {
-
-    const {searchParams: query} = new URL(request.url)
-    data.secret = query.get('secret')
-    data.tags = query.get('tags')
-    data.documentId = query.get('documentId')
+    throw new Error('GET method is not allowed to revalidate cache')
   }
 
   if (data.secret !== speak('cache.secret')) {

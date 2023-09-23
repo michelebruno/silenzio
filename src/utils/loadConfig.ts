@@ -20,17 +20,12 @@ export function searchConfig() {
 
   let res;
 
-
   for (const searchInThisPath of searchInThesePaths) {
-
     try {
       let f = require.resolve(searchInThisPath)
-
       try {
         res = require(f)
-
         if (res) break;
-
       } catch (e) {
       }
     } catch (e) {
@@ -40,7 +35,6 @@ export function searchConfig() {
   }
 
   return res;
-
 }
 
 export function loadConfig(configOrPath?: string | Silenzio.Config): Silenzio.Config {
@@ -49,7 +43,6 @@ export function loadConfig(configOrPath?: string | Silenzio.Config): Silenzio.Co
 
   if (!configOrPath) {
     if (!appConfig) {
-
       result = searchConfig()
     } else {
       result = appConfig
@@ -58,6 +51,7 @@ export function loadConfig(configOrPath?: string | Silenzio.Config): Silenzio.Co
   } else if (typeof configOrPath === 'object') {
     result = configOrPath
   }
+
   return _.merge(result as Silenzio.Config, defaultConfig as Silenzio.Config)
 }
 

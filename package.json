@@ -23,7 +23,7 @@
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "dev": "yarn build:esm --watch",
     "prepare": "rm -rf dist && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc --outDir dist/esm --project tsconfig.build.json",

@@ -37,4 +37,16 @@ describe("NextJS revalidateCache", () => {
     await revalidateCache(request as NextRequest)
     expect(require('next/cache').revalidateTag).toBeCalled()
   })
+
+
+  test('doesn\'t allow GET requests',  () => {
+
+    const getReq: Partial<NextRequest> = {
+      ...request,
+      method: 'GET'
+    }
+
+    expect(revalidateCache(getReq as NextRequest)).rejects.toThrowError()
+    
+  })
 })

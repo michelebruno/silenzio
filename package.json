@@ -27,34 +27,33 @@
   "description": "Michele Bruno's utility library",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
-  "types": "./types.d.ts",
   "scripts": {
     "test": "jest",
     "dev": "yarn build:esm --watch",
     "prepare": "rm -rf dist && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc --outDir dist/esm --project tsconfig.build.json",
-    "build:cjs": "tsc --outDir dist/cjs --project tsconfig.build.json --module commonjs"
+    "build:cjs": "tsc --outDir dist/cjs --project tsconfig.build.json --module commonjs --moduleResolution node"
   },
   "exports": {
-    ".": "./dist/esm/index.js",
-    "./next": "./dist/esm/next/index.js",
-    "./sanity": "./dist/esm/sanity/index.js",
-    "./utils": "./dist/esm/utils/index.js"
-  },
-  "typesVersions": {
     ".": {
-      ".": [
-        "./dist/esm/index.d.ts"
-      ],
-      "./next": [
-        "./dist/esm/next/index.d.ts"
-      ],
-      "./sanity": [
-        "./dist/esm/sanity/index.d.ts"
-      ],
-      "./utils": [
-        "./dist/esm/utils/index.d.ts"
-      ]
+      "module": "./dist/esm/index.js",
+      "types": "./dist/esm/index.d.ts",
+      "default": "./dist/esm/index.js"
+    },
+    "./next": {
+      "module": "./dist/esm/next/index.js",
+      "types": "./dist/esm/next/index.d.ts",
+      "default": "./dist/esm/next/index.js"
+    },
+    "./sanity": {
+      "module": "./dist/esm/sanity/index.js",
+      "types": "./dist/esm/sanity/index.d.ts",
+      "default": "./dist/esm/sanity/index.js"
+    },
+    "./utils": {
+      "module": "./dist/esm/utils/index.js",
+      "types": "./dist/esm/utils/index.d.ts",
+      "default": "./dist/esm/utils/index.js"
     }
   },
   "author": "Michele Bruno",

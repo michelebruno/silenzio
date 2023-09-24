@@ -20,6 +20,10 @@ async function handler(request: NextRequest) {
     throw new Error('GET method is not allowed to revalidate cache');
   }
 
+  if (!data.secret) {
+    return Response.json('No token provided', { status: 401 });
+  }
+
   if (data.secret !== speak('cache.secret')) {
     return Response.json('Unauthorized', { status: 401 });
   }

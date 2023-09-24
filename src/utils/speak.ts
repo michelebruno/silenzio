@@ -1,6 +1,19 @@
-import { loadConfig } from './loadConfig';
+import { loadConfig, requiredConfigPaths } from './loadConfig';
 import _ from 'lodash';
 import { Config } from '../default.config';
+
+export default function speak<T extends NestedKeyOfConfig>(
+  path: T
+): ExtractPropertyFromPath<Config, T> {
+  const config = loadConfig();
+
+  const property = _.property(path)(config) as never;
+
+  if (!property && requiredConfigPaths.includes(path))
+    throw new Error(`Required config property ${path} is null or undefined.`);
+
+  return property;
+}
 
 type ExtractPropertyFromPath<
   ObjectType extends Record<string, any>,
@@ -23,19 +36,4 @@ type TypeToDotNotation<T> = T extends object
     }[keyof T]
   : never;
 
-type NestedKeyOfConfig = TypeToDotNotation<Config>;
-
-const requiredPaths: NestedKeyOfConfig[] = ['cache.secret'];
-
-export default function speak<T extends NestedKeyOfConfig>(
-  path: T
-): ExtractPropertyFromPath<Config, T> {
-  const config = loadConfig();
-
-  const prop = _.property(path)(config) as never;
-
-  if (!prop && requiredPaths.includes(path))
-    console.warn(`Required config property ${path} is null or undefined.`);
-
-  return prop;
-}
+export type NestedKeyOfConfig = TypeToDotNotation<Config>;

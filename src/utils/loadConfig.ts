@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 // @ts-expect-error Since it must be aliased or mocked
 import appConfig from 'silenzio-config';
+import { NestedKeyOfConfig } from './speak';
 
 if (!appConfig) {
   console.warn(
@@ -34,9 +35,7 @@ export function searchConfig() {
   return res;
 }
 
-export function loadConfig(
-  configOrPath?: string | Silenzio.Config
-): Silenzio.Config {
+function _loadConfig(configOrPath?: string | Silenzio.Config): Silenzio.Config {
   let result;
 
   if (!configOrPath) {
@@ -51,3 +50,21 @@ export function loadConfig(
 
   return _.merge(result as Silenzio.Config, defaultConfig as Silenzio.Config);
 }
+
+export const requiredConfigPaths: NestedKeyOfConfig[] = ['cache.secret'];
+
+export function loadConfig(
+  configOrPath?: string | Silenzio.Config
+): Silenzio.Config {
+  const config = _loadConfig(configOrPath);
+
+  for (const path of requiredConfigPaths) {
+    if (typeof window === 'undefined' && !_.property(path)(config)) {
+      console.warn(`Required config property ${path} is null or undefined.`);
+    }
+  }
+
+  return config;
+}
+
+export default loadConfig;

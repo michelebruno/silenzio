@@ -1,7 +1,8 @@
 import revalidateCacheOnAction from "./revalidateCacheOnAction";
-import type { DocumentActionComponent, DocumentActionsContext } from "./index";
+import type { DocumentActionComponent, DocumentActionsContext } from "sanity";
+
 import Mock = jest.Mock;
-import speak from "../../core/src/speak";
+import { speak } from "@silenzio/core";
 
 global.fetch = jest.fn().mockImplementation(async () => {
   return {

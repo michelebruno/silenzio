@@ -1,7 +1,7 @@
-/// <reference types="./sanity/src" />
+/// <reference types="sanity" />
 
 declare namespace Silenzio {
-  import type { HttpMethod } from "./core/src/default.config";
+  import type { HttpMethod } from "@silenzio/core";
 
   export type Config = {
     hostname: string | string[];

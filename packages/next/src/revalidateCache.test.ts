@@ -7,9 +7,9 @@ jest.mock("next/cache", () => ({
   revalidateTag: jest.fn(),
 }));
 
-import { describe } from "@jest/globals";
+import { describe, jest } from "@jest/globals";
 import { NextRequest } from "next/server";
-import speak from "../../core/src/speak";
+import { speak } from "@silenzio/core";
 
 describe("NextJS revalidateCache", () => {
   const request: Partial<NextRequest> = {

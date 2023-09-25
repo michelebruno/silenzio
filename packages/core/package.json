@@ -3,6 +3,7 @@
   "version": "0.0.1-alpha.0",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
   "repository": "https://github.com/michelebruno/silenzio.git",
   "author": "Michele Bruno",
   "license": "MIT",
@@ -20,7 +21,9 @@
     "ts-jest": "^29.1.1",
     "typescript": "^5.2.2"
   },
+  "type": "module",
   "dependencies": {
     "lodash": "^4.17.21"
-  }
+  },
+  "gitHead": "0f0c22fd8f9e422e9a3ef0e95ab2804ea033672d"
 }

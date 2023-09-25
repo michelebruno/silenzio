@@ -1,4 +1,4 @@
-jest.mock("silenzio-config");
+jest.mock("@silenzio/app-config");
 
 import revalidateCache from "./revalidateCache";
 import nextCache from "next/cache";

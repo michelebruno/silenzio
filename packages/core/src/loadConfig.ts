@@ -2,9 +2,7 @@ import defaultConfig from "./default.config";
 import _ from "lodash";
 
 // @ts-expect-error Since it must be aliased or mocked
-import appConfig from "silenzio-config";
-
-console.log("ciao da silenzio");
+import appConfig from "@silenzio/app-config";
 
 if (!appConfig) {
   console.warn(
@@ -13,22 +11,20 @@ if (!appConfig) {
 }
 
 export function searchConfig() {
-  const moduleName = "silenzio";
-
   const searchInThesePaths = [
-    `${process.cwd()}/${moduleName}.config.js`,
-    `${process.cwd()}/${moduleName}.config.ts`,
-    `${process.cwd()}/${moduleName}.config.mjs`,
-    `${process.cwd()}/${moduleName}.config.cjs`,
+    `${process.cwd()}/silenzio.config.js`,
+    `${process.cwd()}/silenzio.config.ts`,
+    `${process.cwd()}/silenzio.config.mjs`,
+    `${process.cwd()}/silenzio.config.cjs`,
   ];
 
   let res;
 
   for (const searchInThisPath of searchInThesePaths) {
     try {
-      const f = require.resolve(searchInThisPath);
+      //const f = require.resolve(searchInThisPath);
       try {
-        res = require(f);
+        // res = require(f);
         if (res) break;
       } catch (e) {}
     } catch (e) {}

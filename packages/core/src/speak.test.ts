@@ -1,8 +1,8 @@
-jest.mock("silenzio-config");
+jest.mock("@silenzio/app-config");
 
 import speak from "./speak";
 
-import mockConfig from "../../../__mocks__/silenzio-config";
+import mockConfig from "../../../__mocks__/@silenzio/app-config";
 
 describe("speak function", () => {
   test("is a function", () => {

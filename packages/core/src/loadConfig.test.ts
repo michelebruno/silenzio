@@ -1,4 +1,4 @@
-jest.mock("silenzio-config");
+jest.mock("@silenzio/app-config");
 
 import { loadConfig, searchConfig } from "./loadConfig";
 

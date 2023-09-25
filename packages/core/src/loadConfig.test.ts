@@ -13,6 +13,7 @@ describe("Config loader", () => {
     // Check if default config is loaded
     expect(config).toHaveProperty("wasDefaultConfigLoaded", true);
   });
+
   test("loads object config passed as param", () => {
     // @ts-expect-error - This is a mock config property, it's not supposed to be used in real life.
     expect(loadConfig({ loadsObjects: true })).toHaveProperty(

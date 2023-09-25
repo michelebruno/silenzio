@@ -1,13 +1,13 @@
+jest.mock("silenzio-config");
+
 import revalidateCache from "./revalidateCache";
 import nextCache from "next/cache";
 
-jest.mock("silenzio-config");
 jest.mock("next/cache", () => ({
   ...jest.requireActual("next/cache"),
   revalidateTag: jest.fn(),
 }));
 
-import { describe, jest } from "@jest/globals";
 import { NextRequest } from "next/server";
 import { speak } from "@silenzio/core";
 

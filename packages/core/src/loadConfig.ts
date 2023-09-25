@@ -4,6 +4,8 @@ import _ from "lodash";
 // @ts-expect-error Since it must be aliased or mocked
 import appConfig from "silenzio-config";
 
+console.log("ciao da silenzio");
+
 if (!appConfig) {
   console.warn(
     "You probably forgot to add the silenzio-config alias to your webpack config"
@@ -12,6 +14,7 @@ if (!appConfig) {
 
 export function searchConfig() {
   const moduleName = "silenzio";
+
   const searchInThesePaths = [
     `${process.cwd()}/${moduleName}.config.js`,
     `${process.cwd()}/${moduleName}.config.ts`,

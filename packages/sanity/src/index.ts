@@ -1,1 +1,5 @@
-export { default as revalidateCacheOnAction } from "./revalidateCacheOnAction";
+import revalidateCacheOnAction from "./revalidateCacheOnAction";
+
+export default {
+  revalidateCacheOnAction,
+};

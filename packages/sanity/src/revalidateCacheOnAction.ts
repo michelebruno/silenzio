@@ -2,8 +2,8 @@ import type {
   DocumentActionComponent,
   DocumentActionProps,
   DocumentActionsContext,
-} from 'sanity';
-import speak from '../utils/speak';
+} from "sanity";
+import { speak } from "@silenzio/core";
 
 export default function revalidateCacheOnAction(
   originalAction: DocumentActionComponent,
@@ -17,7 +17,7 @@ export default function revalidateCacheOnAction(
         if (originalResult?.onHandle) originalResult.onHandle();
 
         const body = {
-          secret: speak('cache.secret'),
+          secret: speak("cache.secret"),
           tags: context.schemaType,
           document: {
             _id: context.documentId,
@@ -26,15 +26,15 @@ export default function revalidateCacheOnAction(
         };
 
         //  const searchParams = new URLSearchParams(body)
-        for (const url of speak('cache.domains') as URL[]) {
+        for (const url of speak("cache.domains") as URL[]) {
           const revalidateApiUrl = new URL(url);
 
-          revalidateApiUrl.pathname = speak('cache.revalidateApiPath');
+          revalidateApiUrl.pathname = speak("cache.revalidateApiPath");
 
           await fetch(revalidateApiUrl.toString(), {
-            method: 'POST',
+            method: "POST",
             body: JSON.stringify(body),
-            headers: { 'Content-Type': 'application/json' },
+            headers: { "Content-Type": "application/json" },
           });
         }
       },

@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.build.json",
+  "compilerOptions": {
+    "types": ["../types.d.ts" ,"node","jest"]
+  },
+  "include": [
+    "../next/src"
+  ]
+}

@@ -1,12 +1,13 @@
 const config: Silenzio.Config = {
+  // @ts-expect-error - used for testing purposes
   isMock: true,
-  hostname: 'https://example.com',
+  hostname: "https://example.com",
   cache: {
-    domains: ['http://example.com'],
-    secret: 'mock-secret',
+    domains: [new URL("https://example.com")],
+    secret: "mock-secret",
   },
   templates: {
-    'mock-document-type': {
+    "mock-document-type": {
       toUrl: (document: Silenzio.Document) =>
         `/mock-document-path/${document.slug.current}`,
     },

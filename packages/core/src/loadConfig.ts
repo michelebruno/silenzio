@@ -1,17 +1,17 @@
-import defaultConfig from '../default.config';
-import _ from 'lodash';
+import defaultConfig from "./default.config";
+import _ from "lodash";
 
 // @ts-expect-error Since it must be aliased or mocked
-import appConfig from 'silenzio-config';
+import appConfig from "silenzio-config";
 
 if (!appConfig) {
   console.warn(
-    'You probably forgot to add the silenzio-config alias to your webpack config'
+    "You probably forgot to add the silenzio-config alias to your webpack config"
   );
 }
 
 export function searchConfig() {
-  const moduleName = 'silenzio';
+  const moduleName = "silenzio";
   const searchInThesePaths = [
     `${process.cwd()}/${moduleName}.config.js`,
     `${process.cwd()}/${moduleName}.config.ts`,
@@ -45,7 +45,7 @@ function InternalLoadConfig(
     } else {
       result = appConfig;
     }
-  } else if (typeof configOrPath === 'object') {
+  } else if (typeof configOrPath === "object") {
     result = configOrPath;
   }
 
@@ -53,7 +53,7 @@ function InternalLoadConfig(
 }
 
 export const requiredConfigPaths: ReadonlyArray<Silenzio.NestedKeyOfConfig> = [
-  'cache.secret',
+  "cache.secret",
 ];
 
 export function loadConfig(
@@ -62,7 +62,7 @@ export function loadConfig(
   const config = InternalLoadConfig(configOrPath);
 
   for (const path of requiredConfigPaths) {
-    if (typeof window === 'undefined' && !_.property(path)(config)) {
+    if (typeof window === "undefined" && !_.property(path)(config)) {
       console.warn(`Required config property ${path} is null or undefined.`);
     }
   }

@@ -1,0 +1,26 @@
+{
+  "name": "@silenzio/sanity",
+  "version": "0.0.1-alpha.0",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "repository": "https://github.com/michelebruno/silenzio.git",
+  "author": "Michele Bruno",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest --coverage",
+    "dev": "yarn build:esm --watch",
+    "lint": "eslint --fix ../next && prettier --write .",
+    "prepare": "rm -rf ./dist && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc --outDir dist/esm --project tsconfig.build.json",
+    "build:cjs": "tsc --outDir dist/cjs --project tsconfig.build.json --module commonjs --moduleResolution node"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.5",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}

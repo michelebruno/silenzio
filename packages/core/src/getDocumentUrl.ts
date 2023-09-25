@@ -1,4 +1,4 @@
-import speak from './speak';
+import speak from "./speak";
 
 export default function getDocumentUrl(
   document: Silenzio.Document,
@@ -14,11 +14,11 @@ export default function getDocumentUrl(
   } else {
     // Throw an Error if we can't determine the type
     throw new Error(
-      'Could not determine the type of the document. It must be present in the document or passed as an argument.'
+      "Could not determine the type of the document. It must be present in the document or passed as an argument."
     );
   }
 
-  const templates: Silenzio.Config['templates'] = speak('templates');
+  const templates: Silenzio.Config["templates"] = speak("templates");
 
   if (templates && templates[postType]) {
     return templates[postType]?.toUrl(document);

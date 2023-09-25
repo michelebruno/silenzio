@@ -1,53 +1,53 @@
-import revalidateCacheOnAction from './revalidateCacheOnAction';
-import type { DocumentActionComponent, DocumentActionsContext } from 'sanity';
+import revalidateCacheOnAction from "./revalidateCacheOnAction";
+import type { DocumentActionComponent, DocumentActionsContext } from "./index";
 import Mock = jest.Mock;
-import speak from '../utils/speak';
+import speak from "../../core/src/speak";
 
 global.fetch = jest.fn().mockImplementation(async () => {
   return {
     json: jest.fn(() => {
       return {
-        message: 'Successfully revalidated tags',
-        tags: 'test',
+        message: "Successfully revalidated tags",
+        tags: "test",
       };
     }),
   };
 });
 
-describe('Sanity revalidateCacheOnAction', () => {
+describe("Sanity revalidateCacheOnAction", () => {
   const mockOriginalAction: Mock<DocumentActionComponent> = jest.fn(() => {
     return () => ({
       onHandle: jest.fn(),
-      label: 'publish',
+      label: "publish",
     });
   });
 
   // @ts-expect-error Missing props we don't need for the test
   const mockContext: DocumentActionsContext = {
-    dataset: 'prodution',
+    dataset: "prodution",
 
-    projectId: '',
+    projectId: "",
 
-    documentId: '123',
-    schemaType: 'test',
+    documentId: "123",
+    schemaType: "test",
   };
 
-  test('is a test', () => {
+  test("is a test", () => {
     expect(true).toBe(true);
   });
 
-  test('is a function', () => {
-    expect(typeof revalidateCacheOnAction).toBe('function');
+  test("is a function", () => {
+    expect(typeof revalidateCacheOnAction).toBe("function");
   });
 
-  test('works properly', async () => {
+  test("works properly", async () => {
     const returnedFunction = revalidateCacheOnAction(
       // @ts-expect-error Props should be DocumentActionProps
       mockOriginalAction,
       mockContext
     );
 
-    expect(typeof returnedFunction).toBe('function');
+    expect(typeof returnedFunction).toBe("function");
 
     // @ts-expect-error Props should be DocumentActionProps
     const result = returnedFunction({});
@@ -57,8 +57,8 @@ describe('Sanity revalidateCacheOnAction', () => {
     await result.onHandle();
 
     expect(jest.mocked(global.fetch).mock.calls[0][0]).not.toHaveProperty(
-      'method',
-      'GET'
+      "method",
+      "GET"
     );
 
     const requestBody: {
@@ -79,7 +79,7 @@ describe('Sanity revalidateCacheOnAction', () => {
     expect(requestBody?.document?._type).toBe(mockContext.schemaType);
 
     expect(global.fetch).toBeCalledTimes(
-      (speak('cache.domains') as URL[]).length
+      (speak("cache.domains") as URL[]).length
     );
   });
 });

@@ -10,9 +10,11 @@ const config: Silenzio.Config = loadConfig();
 describe('getDocumentUrl', () => {
   test('resolves url if type is given', () => {
     expect(
-      config?.templates['mock-document-type'].toUrl({
-        slug: { current: 'test' },
-      })
+      config?.templates &&
+        'mock-document-type' in config?.templates &&
+        config?.templates['mock-document-type'].toUrl({
+          slug: { current: 'test' },
+        })
     ).toBe(getDocumentUrl({ slug: { current: 'test' } }, 'mock-document-type'));
   });
 

@@ -1,34 +1,34 @@
-jest.mock('silenzio-config');
+jest.mock("silenzio-config");
 
-import { loadConfig, searchConfig } from './loadConfig';
+import { loadConfig, searchConfig } from "./loadConfig";
 
-const config = loadConfig();
+describe("Config loader", () => {
+  const config = loadConfig();
 
-describe('Config loader', () => {
-  it('loads mock config', () => {
-    expect(config).toHaveProperty('isMock', true);
+  it("loads mock config", () => {
+    expect(config).toHaveProperty("isMock", true);
   });
 
-  test('loads default config', () => {
+  test("loads default config", () => {
     // Check if default config is loaded
-    expect(config).toHaveProperty('wasDefaultConfigLoaded', true);
+    expect(config).toHaveProperty("wasDefaultConfigLoaded", true);
   });
-  test('loads object config', () => {
-    // Check if default config is loaded
+  test("loads object config passed as param", () => {
+    // @ts-expect-error - This is a mock config property, it's not supposed to be used in real life.
     expect(loadConfig({ loadsObjects: true })).toHaveProperty(
-      'loadsObjects',
+      "loadsObjects",
       true
     );
   });
 });
 
-describe.skip('Mock config', () => {
+describe.skip("Mock config", () => {
   // Doens't work since jest doesn't allow to mock require.resolve
-  test('is found', () => {
-    const spy = jest.spyOn(process, 'cwd');
+  test("is found", () => {
+    const spy = jest.spyOn(process, "cwd");
 
-    spy.mockReturnValue('/Users/michelebruno/coding/skp');
+    spy.mockReturnValue("/Users/michelebruno/coding/skp");
 
-    expect(searchConfig()).toHaveProperty('name', 'SK Progetti');
+    expect(searchConfig()).toHaveProperty("name", "SK Progetti");
   });
 });

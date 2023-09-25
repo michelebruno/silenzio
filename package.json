@@ -1,6 +1,6 @@
 {
   "name": "silenzio",
-  "version": "0.0.2-beta",
+  "version": "0.0.2-beta.1",
   "type": "module",
   "files": [
     "dist"

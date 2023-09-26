@@ -25,9 +25,24 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@silenzio/app-config": "^0.0.1",
     "@silenzio/core": "^0.0.1",
     "lodash": "^4.17.21",
     "next": "^13.5.2"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "types": "./dist/esm/index.d.ts",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/cjs/index.js"
+    },
+    "./withSilenzio": {
+      "default": "./dist/cjs/withSilenzio.js",
+      "require": "./dist/cjs/withSilenzio.js",
+      "types": "./dist/esm/withSilenzio.d.ts",
+      "import": "./dist/esm/withSilenzio.js"
+    }
   },
   "gitHead": "0f0c22fd8f9e422e9a3ef0e95ab2804ea033672d"
 }

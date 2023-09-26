@@ -52,7 +52,9 @@ declare namespace Silenzio {
   export type ExtractPropertyFromPath<
     ObjectType extends Record<string, unknown>,
     Path extends string,
-  > = Path extends `${infer FirstPart}.${infer Rest}` // Se è a.b
+  > = Path extends `templates.${infer Rest extends string}`
+    ? "ciao bro"
+    : Path extends `${infer FirstPart}.${infer Rest}` // Se è a.b
     ? FirstPart extends keyof Required<ObjectType>
       ? Required<ObjectType>[FirstPart] extends object
         ? ExtractPropertyFromPath<Required<ObjectType>[FirstPart], Rest>

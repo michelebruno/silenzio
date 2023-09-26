@@ -39,10 +39,7 @@
   "module": "./dist/esm/index.js",
   "scripts": {
     "test": "jest --coverage",
-    "dev": "yarn build:cjs --watch",
-    "lint": "eslint --fix . && prettier --write .",
-    "build:esm": "tsc --outDir dist/esm --project tsconfig.build.json",
-    "build:cjs": "tsc --outDir dist/cjs --project tsconfig.build.json --module commonjs --moduleResolution node"
+    "lint": "eslint --fix . && prettier --write ."
   },
   "author": "Michele Bruno",
   "license": "ISC",

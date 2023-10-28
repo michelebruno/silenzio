@@ -1,6 +1,6 @@
 {
   "name": "@silenzio/next",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
@@ -25,8 +25,8 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@silenzio/app-config": "^0.0.2",
-    "@silenzio/core": "^0.0.2",
+    "@silenzio/app-config": "^0.0.3",
+    "@silenzio/core": "^0.0.3",
     "lodash": "^4.17.21",
     "next": "^13.5.2"
   },
@@ -46,8 +46,12 @@
   },
   "typesVersions": {
     "*": {
-      ".": ["./dist/esm/index.d.ts"],
-      "withSilenzio": ["./dist/esm/withSilenzio.d.ts"]
+      ".": [
+        "./dist/esm/index.d.ts"
+      ],
+      "withSilenzio": [
+        "./dist/esm/withSilenzio.d.ts"
+      ]
     }
   },
   "gitHead": "0f0c22fd8f9e422e9a3ef0e95ab2804ea033672d"

@@ -10,7 +10,7 @@ if (!appConfig) {
   );
 }
 
-export function searchConfig() {
+export function searchConfigPath() {
   const searchInThesePaths = [
     `${process.cwd()}/silenzio.config.js`,
     `${process.cwd()}/silenzio.config.ts`,
@@ -33,17 +33,20 @@ export function searchConfig() {
   return res;
 }
 
+// export function searchConfig(): Silenzio.Config | undefined {
+//   let path;
+//   if ((path = searchConfigPath())) {
+//     return require(path);
+//   }
+// }
+
 function InternalLoadConfig(
   configOrPath?: string | Silenzio.Config
 ): Silenzio.Config {
   let result;
 
   if (!configOrPath) {
-    if (!appConfig) {
-      result = searchConfig();
-    } else {
-      result = appConfig;
-    }
+    result = appConfig;
   } else if (typeof configOrPath === "object") {
     result = configOrPath;
   }
@@ -69,4 +72,4 @@ export function loadConfig(
   return config;
 }
 
-export default loadConfig;
+export default { loadConfig, searchConfigPath };

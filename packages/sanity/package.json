@@ -12,7 +12,7 @@
     "lint": "eslint --fix ../next && prettier --write .",
     "prepare": "rm -rf ./dist && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc --outDir dist/esm --project tsconfig.build.json",
-    "build:cjs": "tsc --outDir dist/cjs --project tsconfig.build.json --module commonjs --moduleResolution node"
+    "build:cjs": "tsc --outDir dist/cjs --project tsconfig.build.json --module commonjs --moduleResolution node "
   },
   "files": [
     "dist"

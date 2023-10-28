@@ -9,14 +9,13 @@
   "files": [
     "dist"
   ],
-  "license": "MIT",
   "scripts": {
     "test": "jest --coverage",
     "dev": "yarn build:cjs --watch",
     "lint": "eslint --fix . && prettier --write .",
     "prepare": "rm -rf ./dist && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc --outDir dist/esm --project tsconfig.build.json",
-    "build:cjs": "tsc --outDir dist/cjs --project tsconfig.build.json --module commonjs --moduleResolution node"
+    "build:cjs": "tsc --outDir dist/cjs --project tsconfig.build.json --module commonjs --moduleResolution node "
   },
   "devDependencies": {
     "@types/jest": "^29.5.5",
@@ -31,6 +30,26 @@
     "@silenzio/app-config": "^0.0.2",
     "@silenzio/types": "^0.0.2",
     "lodash": "^4.17.21"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "types": "./dist/esm/index.d.ts",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/cjs/index.js"
+    },
+    "./utils": {
+      "require": "./dist/cjs/utils.js",
+      "types": "./dist/esm/utils.d.ts",
+      "import": "./dist/esm/utils.js",
+      "default": "./dist/cjs/utils.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "utils": ["./dist/esm/utils.d.ts"],
+      ".": ["./dist/esm/index.d.ts"]
+    }
   },
   "gitHead": "0f0c22fd8f9e422e9a3ef0e95ab2804ea033672d"
 }

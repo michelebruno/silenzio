@@ -7,6 +7,9 @@
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
       <excludeFolder url="file://$MODULE_DIR$/coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/core/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/next/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/sanity/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

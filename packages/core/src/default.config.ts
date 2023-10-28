@@ -20,7 +20,8 @@ const silenzioConfigDefault: Silenzio.Config = {
   cache: {
     secret:
       process.env.SANITY_STUDIO_SILENZIO_REVALIDATE_CACHE_SECRET ||
-      process.env.SILENZIO_REVALIDATE_CACHE_SECRET,
+      process.env.SILENZIO_REVALIDATE_CACHE_SECRET ||
+      process.env.NEXT_PUBLIC_SILENZIO_REVALIDATE_CACHE_SECRET,
     domains:
       process.env.SANITY_STUDIO_SILENZIO_DOMAINS?.split(",").map(
         (u) => new URL(u)

@@ -1,6 +1,6 @@
 jest.mock("@silenzio/app-config");
 
-import { loadConfig, searchConfig } from "./loadConfig";
+import { loadConfig } from "./loadConfig";
 
 describe("Config loader", () => {
   const config = loadConfig();
@@ -30,6 +30,6 @@ describe.skip("Mock config", () => {
 
     spy.mockReturnValue("/Users/michelebruno/coding/skp");
 
-    expect(searchConfig()).toHaveProperty("name", "SK Progetti");
+    // expect(searchConfig()).toHaveProperty("name", "SK Progetti");
   });
 });

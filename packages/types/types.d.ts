@@ -53,7 +53,12 @@ declare namespace Silenzio {
     ObjectType extends Record<string, unknown>,
     Path extends string,
   > = Path extends `templates.${infer Rest extends string}`
-    ? "ciao bro"
+    ? Rest extends `${infer _ extends
+        string}.${infer TemplateObjectProperty extends string}`
+      ? TemplateObjectProperty extends keyof TemplateObject
+        ? TemplateObject[TemplateObjectProperty]
+        : never
+      : TemplateObject
     : Path extends `${infer FirstPart}.${infer Rest}` // Se è a.b
     ? FirstPart extends keyof Required<ObjectType>
       ? Required<ObjectType>[FirstPart] extends object

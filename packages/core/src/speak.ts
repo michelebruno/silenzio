@@ -9,7 +9,7 @@ export default function speak<T extends Silenzio.NestedKeyOfConfig>(
 
   const property = _.property(path)(config) as never;
 
-  if (!property && !requiredConfigPaths.includes(path)) {
+  if (!property && requiredConfigPaths.includes(path)) {
     if (isDebugMode())
       console.debug(
         `Required config property ${path} is null or undefined.`,

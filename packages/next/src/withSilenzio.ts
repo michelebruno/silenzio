@@ -7,6 +7,10 @@ export function withSilenzio(config: NextConfig): NextConfig {
 
   return {
     ...config,
+    env: {
+      ...config.env,
+      SILENZIO_DEBUG: process.env.SILENZIO_DEBUG || "0",
+    },
     webpack(c: Configuration, ...rest) {
       if (!c.resolve) c.resolve = {};
 

@@ -2,6 +2,8 @@ import type { NextRequest } from "next/server";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { speak } from "@silenzio/core";
 import { getDocumentUrl } from "@silenzio/core";
+import { isDebugMode } from "@silenzio/core/utils";
+import { headers } from "next/headers";
 
 async function handler(request: NextRequest) {
   const data = {
@@ -9,6 +11,8 @@ async function handler(request: NextRequest) {
     tags: null as string | null,
     documentId: null as string | null,
   };
+
+  headers().set("Access-Control-Allow-Origin", "*");
 
   if (request.method !== "GET") {
     const body = await request.json();
@@ -19,27 +23,34 @@ async function handler(request: NextRequest) {
   } else {
     throw new Error("GET method is not allowed to revalidate cache");
   }
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+  };
 
   if (!data.secret) {
-    return Response.json("No token provided", { status: 401 });
+    return Response.json("No token provided", { status: 401, headers });
   }
 
   if (data.secret !== speak("cache.secret")) {
-    return Response.json("Unauthorized", { status: 401 });
+    return Response.json("Unauthorized", { status: 401, headers });
   }
 
   const { tags } = data;
 
-  tags?.split(",").forEach(revalidateTag);
+  tags?.split(",").forEach((tag) => {
+    revalidateTag(tag);
+  });
 
   if (data.documentId && data.tags && data.tags in speak("templates")) {
-    if (getDocumentUrl(data.documentId, data.tags))
-      revalidatePath(getDocumentUrl(data.documentId, data.tags));
+    if (getDocumentUrl(data.documentId, data.tags)) {
+      const url = getDocumentUrl(data.documentId, data.tags);
+      if (isDebugMode()) revalidatePath(url);
+    }
   }
 
   return Response.json(
     { message: "Successfully revalidated tags", tags },
-    { status: 200 }
+    { status: 200, headers }
   );
 }
 

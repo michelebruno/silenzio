@@ -1,6 +1,6 @@
 {
   "name": "@silenzio/core",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -27,8 +27,8 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@silenzio/app-config": "^0.0.3",
-    "@silenzio/types": "^0.0.3",
+    "@silenzio/app-config": "^0.0.4",
+    "@silenzio/types": "^0.0.4",
     "lodash": "^4.17.21"
   },
   "exports": {

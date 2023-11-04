@@ -4,7 +4,12 @@ declare namespace Silenzio {
   import type { HttpMethod } from "@silenzio/core";
 
   export type Config = {
-    hostname: string | string[];
+    /**
+     * The hostname of the current website build. 
+     * 
+     * Better if it's already a URL object 
+     */
+    hostname: URL| string;
 
     test?: string;
 
@@ -13,6 +18,11 @@ declare namespace Silenzio {
     };
 
     cache?: {
+      /**
+       * The secret that is used to revalidate the cache
+       *
+       * It will be embedded in the sanity studio bundle and will be used by the (NextJs) server to revalidate the cache
+       */
       secret?: string;
 
       /**

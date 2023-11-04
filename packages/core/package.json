@@ -33,25 +33,25 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
       "types": "./dist/esm/index.d.ts",
       "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js",
       "default": "./dist/cjs/index.js"
     },
     "./utils": {
-      "require": "./dist/cjs/utils.js",
       "types": "./dist/esm/utils.d.ts",
+      "require": "./dist/cjs/utils.js",
       "import": "./dist/esm/utils.js",
       "default": "./dist/cjs/utils.js"
     }
   },
   "typesVersions": {
     "*": {
-      "utils": [
-        "./dist/esm/utils.d.ts"
-      ],
       ".": [
         "./dist/esm/index.d.ts"
+      ],
+      "utils": [
+        "./dist/esm/utils.d.ts"
       ]
     }
   },

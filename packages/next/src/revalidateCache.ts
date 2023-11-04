@@ -3,7 +3,6 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import { speak } from "@silenzio/core";
 import { getDocumentUrl } from "@silenzio/core";
 import { isDebugMode } from "@silenzio/core/utils";
-import { headers } from "next/headers";
 
 async function handler(request: NextRequest) {
   const data = {
@@ -11,8 +10,6 @@ async function handler(request: NextRequest) {
     tags: null as string | null,
     documentId: null as string | null,
   };
-
-  headers().set("Access-Control-Allow-Origin", "*");
 
   if (request.method !== "GET") {
     const body = await request.json();

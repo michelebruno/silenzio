@@ -16,7 +16,6 @@ export type HttpMethod = (typeof HttpMethods)[number];
 const silenzioConfigDefault: Silenzio.Config = {
   // @ts-expect-error - This is a mock config property, it's not supposed to be used in real life.
   wasDefaultConfigLoaded: true,
-  hostname: "https://example.com",
   cache: {
     secret:
       process.env.SANITY_STUDIO_SILENZIO_REVALIDATE_CACHE_SECRET ||

@@ -19,27 +19,27 @@
     "build:cjs": "tsc --outDir dist/cjs --project tsconfig.build.json --module commonjs --moduleResolution node "
   },
   "devDependencies": {
+    "@silenzio/app-config": "^0.0.3",
     "@types/jest": "^29.5.5",
     "jest": "^29.7.0",
+    "next": "^13.5",
     "ts-jest": "^29.1.1",
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@silenzio/app-config": "^0.0.3",
     "@silenzio/core": "^0.0.3",
-    "lodash": "^4.17.21",
-    "next": "^13.5.2"
+    "lodash": "^4.17.21"
   },
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
       "types": "./dist/esm/index.d.ts",
       "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js",
       "default": "./dist/cjs/index.js"
     },
     "./withSilenzio": {
-      "require": "./dist/cjs/withSilenzio.js",
       "types": "./dist/esm/withSilenzio.d.ts",
+      "require": "./dist/cjs/withSilenzio.js",
       "import": "./dist/esm/withSilenzio.js",
       "default": "./dist/cjs/withSilenzio.js"
     }
@@ -54,5 +54,8 @@
       ]
     }
   },
-  "gitHead": "0f0c22fd8f9e422e9a3ef0e95ab2804ea033672d"
+  "gitHead": "0f0c22fd8f9e422e9a3ef0e95ab2804ea033672d",
+  "peerDependencies": {
+    "next": "^13.5.2"
+  }
 }

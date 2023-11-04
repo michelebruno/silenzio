@@ -51,11 +51,11 @@ function InternalLoadConfig(
     result = configOrPath;
   }
 
-  return _.merge(result as Silenzio.Config, defaultConfig as Silenzio.Config);
+  return _.merge( defaultConfig as Silenzio.Config, result as Silenzio.Config,);
 }
 
 export const requiredConfigPaths: ReadonlyArray<Silenzio.NestedKeyOfConfig> = [
-  "cache.secret",
+  "cache.secret","hostname"
 ];
 
 export function loadConfig(

@@ -6,7 +6,7 @@ import type {
 import { speak } from "@silenzio/core";
 import { isDebugMode } from "@silenzio/core/utils";
 
-export default function revalidateCacheOnAction(
+export default function revalidateCacheOnAction( 
   originalAction: DocumentActionComponent,
   context: DocumentActionsContext
 ) {
@@ -33,6 +33,7 @@ export default function revalidateCacheOnAction(
 
         //  const searchParams = new URLSearchParams(body)
         for (const url of domains as URL[]) {
+          // TODO: url is already a URL, no need to create a new one
           const revalidateApiUrl = new URL(url);
 
           revalidateApiUrl.pathname = speak("cache.revalidateApiPath");

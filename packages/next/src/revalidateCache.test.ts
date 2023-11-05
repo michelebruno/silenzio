@@ -1,15 +1,15 @@
-jest.mock("@silenzio/app-config");
-
-import revalidateCache from "./revalidateCache";
 import nextCache from "next/cache";
+
+import { NextRequest } from "next/server";
+import { speak } from "@silenzio/core";
+import revalidateCache from "./revalidateCache";
+
+jest.mock("@silenzio/app-config");
 
 jest.mock("next/cache", () => ({
   ...jest.requireActual("next/cache"),
   revalidateTag: jest.fn(),
 }));
-
-import { NextRequest } from "next/server";
-import { speak } from "@silenzio/core";
 
 describe("NextJS revalidateCache", () => {
   const request: Partial<NextRequest> = {

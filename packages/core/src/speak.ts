@@ -1,5 +1,5 @@
-import { requiredConfigPaths, loadConfig } from "./loadConfig";
 import _ from "lodash";
+import { requiredConfigPaths, loadConfig } from "./loadConfig";
 import { isDebugMode } from "./utils";
 
 export default function speak<T extends Silenzio.NestedKeyOfConfig>(

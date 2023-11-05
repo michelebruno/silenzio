@@ -44,8 +44,8 @@ export function withSilenzio(config: NextConfig): NextConfig {
         );
 
       if (config?.webpack && typeof config.webpack === "function")
-        return config.webpack(c,...rest);
-      else return c;
+        return config.webpack(c, ...rest);
+      return c;
     },
   };
 }

@@ -1,12 +1,11 @@
 import type { NextRequest } from "next/server";
 import { revalidatePath, revalidateTag } from "next/cache";
-import { speak } from "@silenzio/core";
-import { getDocumentUrl } from "@silenzio/core"; 
+import { speak, getDocumentUrl } from "@silenzio/core";
+
 import { isDebugMode } from "@silenzio/core/utils";
 
-  
 async function handler(request: NextRequest) {
-  const data = { 
+  const data = {
     secret: null as string | null,
     tags: null as string | null,
     documentId: null as string | null,

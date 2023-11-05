@@ -3,11 +3,20 @@
 declare namespace Silenzio {
   import type { HttpMethod } from "@silenzio/core";
 
+  export type Document = SanityDocumentLike & {
+    slug: Slug;
+  };
+
+  export type TemplateObject = {
+    path?: string;
+    toUrl: (document: Document) => string;
+  };
+
   export type Config = {
     /**
-     * The hostname of the current website build. 
-     * 
-     * Better if it's already a URL object 
+     * The hostname of the current website build.
+     *
+     * Better if it's already a URL object
      */
     hostname: URL | string;
 
@@ -48,15 +57,6 @@ declare namespace Silenzio {
        */
       method?: HttpMethod;
     };
-  };
-
-  export type Document = SanityDocumentLike & {
-    slug: Slug;
-  };
-
-  export type TemplateObject = {
-    path?: string;
-    toUrl: (document: Document) => string;
   };
 
   export type ExtractPropertyFromPath<

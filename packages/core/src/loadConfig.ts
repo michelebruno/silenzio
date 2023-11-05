@@ -1,8 +1,8 @@
-import defaultConfig from "./default.config";
 import _ from "lodash";
 
 // @ts-expect-error Since it must be aliased or mocked
 import appConfig from "@silenzio/app-config";
+import defaultConfig from "./default.config";
 
 if (!appConfig) {
   console.warn(
@@ -22,7 +22,7 @@ export function searchConfigPath() {
 
   for (const searchInThisPath of searchInThesePaths) {
     try {
-      //const f = require.resolve(searchInThisPath);
+      // const f = require.resolve(searchInThisPath);
       try {
         // res = require(f);
         if (res) break;
@@ -51,11 +51,12 @@ function InternalLoadConfig(
     result = configOrPath;
   }
 
-  return _.merge( defaultConfig as Silenzio.Config, result as Silenzio.Config,);
+  return _.merge(defaultConfig as Silenzio.Config, result as Silenzio.Config);
 }
 
 export const requiredConfigPaths: Array<Silenzio.NestedKeyOfConfig> = [
-  "cache.secret","hostname"
+  "cache.secret",
+  "hostname",
 ];
 
 export function loadConfig(

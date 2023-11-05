@@ -1,14 +1,11 @@
 import type { PluginOptions } from "sanity";
-import revalidateCacheOnAction from "./revalidateCacheOnAction";
 import { getDocumentUrl, speak } from "@silenzio/core";
-
- import { deskTool } from "sanity/desk";
- 
+import revalidateCacheOnAction from "./revalidateCacheOnAction";
 
 export default function silenzioSanityPlugin() {
   return {
     name: "@silenzio/sanity",
-    plugins: [   ],
+    plugins: [],
     document: {
       actions: (prev, context) =>
         prev.map((originalAction) =>
@@ -28,7 +25,7 @@ export default function silenzioSanityPlugin() {
           url.pathname = getDocumentUrl(context.document);
         } catch (e) {
           // @ts-expect-error Document is not typed
-          const slug = context.document?.slug?.current || context.document?._id; 
+          const slug = context.document?.slug?.current || context.document?._id;
           url.pathname = `/${slug}`;
         }
 

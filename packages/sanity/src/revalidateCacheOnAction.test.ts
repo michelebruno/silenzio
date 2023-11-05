@@ -1,5 +1,5 @@
-import revalidateCacheOnAction from "./revalidateCacheOnAction";
 import type { DocumentActionComponent, DocumentActionsContext } from "sanity";
+import revalidateCacheOnAction from "./revalidateCacheOnAction";
 
 import Mock = jest.Mock;
 import { speak } from "@silenzio/core";

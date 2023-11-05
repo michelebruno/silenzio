@@ -1,8 +1,8 @@
-jest.mock("@silenzio/app-config");
-
 import getDocumentUrl from "./getDocumentUrl";
 
 import { loadConfig } from "./loadConfig";
+
+jest.mock("@silenzio/app-config");
 
 const config: Silenzio.Config = loadConfig();
 

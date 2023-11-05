@@ -1,6 +1,6 @@
-jest.mock("@silenzio/app-config");
-
 import { loadConfig } from "./loadConfig";
+
+jest.mock("@silenzio/app-config");
 
 describe("Config loader", () => {
   const config = loadConfig();

@@ -54,7 +54,7 @@ function InternalLoadConfig(
   return _.merge( defaultConfig as Silenzio.Config, result as Silenzio.Config,);
 }
 
-export const requiredConfigPaths: ReadonlyArray<Silenzio.NestedKeyOfConfig> = [
+export const requiredConfigPaths: Array<Silenzio.NestedKeyOfConfig> = [
   "cache.secret","hostname"
 ];
 

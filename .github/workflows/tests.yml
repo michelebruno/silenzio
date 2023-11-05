@@ -24,9 +24,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "yarn"
+          cache: "npm"
       - name: Install dependencies
-        run: yarn --frozen-lockfile
-      - run: yarn test --coverage
+        run: npm ci
+      - run: npm run test -- --coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3

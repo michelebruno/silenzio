@@ -1,7 +1,13 @@
 {
   "extends": "../../tsconfig.build.json",
   "compilerOptions": {
-    "types": ["@silenzio/types", "node", "jest"]
+    "types": [
+      "@silenzio/types",
+      "node",
+      "jest"
+    ]
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

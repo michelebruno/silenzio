@@ -5,7 +5,8 @@
   "author": "michelebruno <43304601+michelebruno@users.noreply.github.com>",
   "homepage": "https://github.com/michelebruno/silenzio#readme",
   "license": "ISC",
-  "main": "types.d.ts",
+  "main": "./types.d.ts",
+  "types": "./types.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/michelebruno/silenzio.git"

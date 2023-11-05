@@ -9,5 +9,10 @@
     "src/**/*",
     "test/**/*"
   ],
-  "exclude": ["dist", "**/dist", "node_modules", "**/node_modules"]
+  "exclude": [
+    "dist",
+    "**/dist",
+    "node_modules",
+    "**/node_modules"
+  ]
 }

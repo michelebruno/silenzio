@@ -9,7 +9,7 @@ declare namespace Silenzio {
      * 
      * Better if it's already a URL object 
      */
-    hostname: URL| string;
+    hostname: URL | string;
 
     test?: string;
 

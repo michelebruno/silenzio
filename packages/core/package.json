@@ -3,6 +3,7 @@
   "version": "0.0.5",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
   "repository": "https://github.com/michelebruno/silenzio.git",
   "author": "Michele Bruno",
   "files": [
@@ -50,8 +51,14 @@
       ".": [
         "./dist/esm/index.d.ts"
       ],
+      "./utils": [
+        "./dist/esm/utils.d.ts"
+      ],    
       "utils": [
         "./dist/esm/utils.d.ts"
+      ],
+      "*": [
+        "./dist/esm/*.d.ts"
       ]
     }
   },

@@ -3,6 +3,12 @@
 declare namespace Silenzio {
   import type { HttpMethod } from "@silenzio/core";
 
+  export type Icon = {
+    vWidth: number;
+    vHeight: number;
+    path: string | JSX.Element | JSX.Element[];
+  };
+
   export type Document = SanityDocumentLike & {
     slug: Slug;
   };
@@ -23,7 +29,7 @@ declare namespace Silenzio {
     test?: string;
 
     templates?: {
-      [key: string | symbol]: TemplateObject;
+      [key: string]: TemplateObject;
     };
 
     cache?: {

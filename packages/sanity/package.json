@@ -1,6 +1,6 @@
 {
   "name": "@silenzio/sanity",
-  "version": "0.0.6-alpha.0",
+  "version": "0.0.6",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
@@ -25,7 +25,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@silenzio/core": "^0.0.6-alpha.0",
+    "@silenzio/core": "^0.0.6",
     "lodash": "^4.17.21",
     "sanity": "^3.19.1"
   },

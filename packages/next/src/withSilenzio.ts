@@ -2,16 +2,15 @@ import type { NextConfig } from "next";
 import type { Configuration } from "webpack";
 import { isDebugMode } from "@silenzio/core/utils";
 
-export function withSilenzio(config: NextConfig): NextConfig {
-  process.env.SILENZIO = "1";
-
+export function withSilenzio({ webpack, ...config }: NextConfig): NextConfig {
   return {
     ...config,
     env: {
       ...config.env,
       SILENZIO_DEBUG: process.env.SILENZIO_DEBUG || "0",
     },
-    webpack(c: Configuration, ...rest) {
+    webpack(webpackConfig: Configuration, ...rest) {
+      const c = { ...webpackConfig };
       if (!c.resolve) c.resolve = {};
 
       const searchInThesePaths = [
@@ -21,21 +20,19 @@ export function withSilenzio(config: NextConfig): NextConfig {
         `${process.cwd()}/silenzio.config.cjs`,
       ];
 
-      let configPath;
-
-      for (const searchInThisPath of searchInThesePaths) {
+      const configPath = searchInThesePaths.reduce((prev, searchInThisPath) => {
+        if (prev) return prev;
         try {
-          const f = require.resolve(searchInThisPath);
-          try {
-            configPath = f;
-            if (configPath) break;
-          } catch (e) {}
-        } catch (e) {}
-      }
+          return require.resolve(searchInThisPath);
+        } catch (e) {
+          return prev;
+        }
+      }, "");
 
       if (configPath)
         c.resolve.alias = {
           "@silenzio/app-config": configPath,
+          ...c.resolve.alias,
         };
       else if (isDebugMode())
         console.debug(
@@ -43,8 +40,7 @@ export function withSilenzio(config: NextConfig): NextConfig {
           configPath
         );
 
-      if (config?.webpack && typeof config.webpack === "function")
-        return config.webpack(c, ...rest);
+      if (typeof webpack === "function") return webpack(c, ...rest);
       return c;
     },
   };

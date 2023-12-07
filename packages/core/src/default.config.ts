@@ -22,11 +22,13 @@ const silenzioConfigDefault: Silenzio.Config = {
       process.env.SILENZIO_REVALIDATE_CACHE_SECRET ||
       process.env.NEXT_PUBLIC_SILENZIO_REVALIDATE_CACHE_SECRET,
     domains:
-      process.env.SANITY_STUDIO_SILENZIO_DOMAINS?.split(",").map(
-        (u) => new URL(u)
-      ) ||
-      process.env.SILENZIO_DOMAINS?.split(",").map((u) => new URL(u)) ||
-      [],
+      (
+        process.env.NEXT_PUBLIC_SILENZIO_HOSTNAMES ||
+        process.env.SANITY_STUDIO_SILENZIO_HOSTNAMES ||
+        process.env.SILENZIO_HOSTNAMES
+      )
+        ?.split(",")
+        .map((u) => new URL(u)) || [],
     revalidateApiPath: "/api/revalidate-cache",
     method: "POST",
   },

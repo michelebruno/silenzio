@@ -35,14 +35,14 @@
   "exports": {
     ".": {
       "types": "./dist/esm/index.d.ts",
-      "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js",
       "default": "./dist/cjs/index.js"
     },
     "./utils": {
       "types": "./dist/esm/utils.d.ts",
-      "import": "./dist/esm/utils.js",
       "require": "./dist/cjs/utils.js",
+      "import": "./dist/esm/utils.js",
       "default": "./dist/cjs/utils.js"
     }
   },
@@ -56,9 +56,6 @@
       ],
       "utils": [
         "./dist/esm/utils.d.ts"
-      ],
-      "*": [
-        "./dist/esm/*.d.ts"
       ]
     }
   },

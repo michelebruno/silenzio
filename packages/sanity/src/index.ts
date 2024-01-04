@@ -1,13 +1,13 @@
-import type { PluginOptions } from "sanity";
+import type { DocumentActionComponent, PluginOptions } from "sanity";
 import { getDocumentUrl, speak } from "@silenzio/core";
 import revalidateCacheOnAction from "./revalidateCacheOnAction";
 
-export default function silenzioSanityPlugin() {
+export default function silenzioSanityPlugin(): PluginOptions {
   return {
     name: "@silenzio/sanity",
     plugins: [],
     document: {
-      actions: (prev, context) =>
+      actions: (prev: DocumentActionComponent[], context) =>
         prev.map((originalAction) =>
           originalAction.action === "publish"
             ? revalidateCacheOnAction(originalAction, context)
@@ -32,5 +32,5 @@ export default function silenzioSanityPlugin() {
         return url.toString();
       },
     },
-  } as PluginOptions;
+  };
 }

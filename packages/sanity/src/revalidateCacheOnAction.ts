@@ -9,10 +9,11 @@ import { isDebugMode } from "@silenzio/core/utils";
 export default function revalidateCacheOnAction(
   originalAction: DocumentActionComponent,
   context: DocumentActionsContext
-) {
+): DocumentActionComponent {
   return (props: DocumentActionProps) => {
     const originalResult = originalAction(props);
     return {
+      label: "Publish",
       ...originalResult,
       onHandle: async () => {
         if (originalResult?.onHandle) originalResult.onHandle();
@@ -31,23 +32,24 @@ export default function revalidateCacheOnAction(
         if (isDebugMode())
           console.debug("Domains where to refresh cache", domains);
 
-        //  const searchParams = new URLSearchParams(body)
-        for (const url of domains as URL[]) {
-          // TODO: url is already a URL, no need to create a new one
-          const revalidateApiUrl = new URL(url);
+        return Promise.all(
+          domains.map(async (url: URL) => {
+            // TODO: url is already a URL, no need to create a new one
+            const revalidateApiUrl = new URL(url);
 
-          revalidateApiUrl.pathname = speak("cache.revalidateApiPath");
+            revalidateApiUrl.pathname = speak("cache.revalidateApiPath");
 
-          try {
-            await fetch(revalidateApiUrl.toString(), {
-              method: "POST",
-              body: JSON.stringify(body),
-              headers: { "Content-Type": "application/json" },
-            });
-          } catch (e) {
-            console.error(e);
-          }
-        }
+            try {
+              await fetch(revalidateApiUrl.toString(), {
+                method: "POST",
+                body: JSON.stringify(body),
+                headers: { "Content-Type": "application/json" },
+              });
+            } catch (e) {
+              console.error(e);
+            }
+          })
+        );
       },
     };
   };

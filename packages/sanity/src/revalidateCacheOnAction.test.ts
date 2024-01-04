@@ -55,7 +55,7 @@ describe("Sanity revalidateCacheOnAction", () => {
 
     expect(mockOriginalAction).toBeCalled();
 
-    await result.onHandle();
+    await result?.onHandle?.();
 
     expect(jest.mocked(global.fetch).mock.calls[0][0]).not.toHaveProperty(
       "method",

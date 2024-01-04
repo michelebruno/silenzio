@@ -23,6 +23,9 @@ async function handler(request: NextRequest) {
   const headers = {
     "Access-Control-Allow-Origin": "*",
   };
+  if (request.method === "OPTIONS" || request.method === "HEAD") {
+    return Response.json(null, { status: 200, headers });
+  }
 
   if (!data.secret) {
     return Response.json("No token provided", { status: 401, headers });

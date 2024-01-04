@@ -18,8 +18,8 @@ const silenzioConfigDefault: Silenzio.Config = {
   wasDefaultConfigLoaded: true,
   cache: {
     secret:
-      process.env.SANITY_STUDIO_SILENZIO_REVALIDATE_CACHE_SECRET ||
       process.env.SILENZIO_REVALIDATE_CACHE_SECRET ||
+      process.env.SANITY_STUDIO_SILENZIO_REVALIDATE_CACHE_SECRET ||
       process.env.NEXT_PUBLIC_SILENZIO_REVALIDATE_CACHE_SECRET,
     domains:
       (

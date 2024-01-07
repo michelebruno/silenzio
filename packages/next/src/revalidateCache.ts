@@ -10,19 +10,22 @@ async function handler(request: NextRequest) {
     tags: null as string | null,
     documentId: null as string | null,
   };
-
-  if (request.method !== "GET") {
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+  };
+  if (request.method === "POST") {
     const body = await request.json();
 
     data.secret = body.secret;
     data.tags = body.tags;
     data.documentId = body.documentId;
-  } else {
-    throw new Error("GET method is not allowed to revalidate cache");
+  } else if (request.method === "GET") {
+    return Response.json("GET method is not allowed to revalidate cache", {
+      status: 405,
+      headers,
+    });
   }
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-  };
+
   if (request.method === "OPTIONS" || request.method === "HEAD") {
     return Response.json(null, { status: 200, headers });
   }

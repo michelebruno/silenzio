@@ -10,14 +10,12 @@ async function handler(request: NextRequest) {
     tags: null as string | null,
     documentId: null as string | null,
   };
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-  };
 
-  const referer = request.headers.get("Referer");
-  if (referer) {
-    headers["Access-Control-Allow-Origin"] = referer;
-  }
+  const headers = {
+    "Access-Control-Allow-Origin": "*", // Consenti richieste da tutte le origini
+    "Access-Control-Allow-Methods": "OPTIONS, POST, GET", // Metodi consentiti
+    "Access-Control-Allow-Headers": "Content-Type", // Header consentiti
+  };
 
   if (request.method === "POST") {
     const body = await request.json();
@@ -33,7 +31,7 @@ async function handler(request: NextRequest) {
   }
 
   if (request.method === "OPTIONS" || request.method === "HEAD") {
-    return Response.json(null, { status: 200, headers });
+    return Response.json(null, { status: 204, headers });
   }
 
   if (!data.secret) {

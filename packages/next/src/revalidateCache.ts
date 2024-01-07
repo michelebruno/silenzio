@@ -31,7 +31,7 @@ async function handler(request: NextRequest) {
   }
 
   if (request.method === "OPTIONS" || request.method === "HEAD") {
-    return Response.json("Preflight run", { status: 204, headers });
+    return Response.json("Preflight run", { status: 200, headers });
   }
 
   if (!data.secret) {

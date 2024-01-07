@@ -13,6 +13,12 @@ async function handler(request: NextRequest) {
   const headers = {
     "Access-Control-Allow-Origin": "*",
   };
+
+  const referer = request.headers.get("Referer");
+  if (referer) {
+    headers["Access-Control-Allow-Origin"] = referer;
+  }
+
   if (request.method === "POST") {
     const body = await request.json();
 

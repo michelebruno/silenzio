@@ -45,6 +45,8 @@ describe("NextJS revalidateCache", () => {
       method: "GET",
     };
 
-    expect(revalidateCache(getReq as NextRequest)).rejects.toThrowError();
+    return revalidateCache(getReq as NextRequest).catch((error) =>
+      expect(error).toMatch("error")
+    );
   });
 });

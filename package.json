@@ -37,6 +37,7 @@
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "scripts": {
+    "prepublishOnly": "npm run test",
     "test": "jest --coverage",
     "lint": "eslint --fix . && prettier --write ."
   },

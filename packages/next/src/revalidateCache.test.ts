@@ -16,27 +16,37 @@ describe("NextJS revalidateCache", () => {
     json(): Promise<object> {
       return Promise.resolve({
         secret: speak("cache.secret"),
-        tags: "test",
+        tags: "mock-document-type",
       });
     },
     get url(): string {
       const url = new URL("https://www.example.com");
-      url.pathname = "/api/revalidate-cache";
-      const search = new URLSearchParams();
-      search.set("tags", "test");
-
-      url.search = search.toString();
-
+      url.pathname = speak("cache.revalidateApiPath");
       return url.toString();
     },
+    method: "POST",
   };
+
+  // TODO: test for OPTIONS and HEAD methods, and check if they have cors headers
 
   test("revalidateTag is called", async () => {
     const spy = jest.spyOn(nextCache, "revalidateTag");
 
-    await revalidateCache(request as NextRequest);
+    const res = await revalidateCache(request as NextRequest);
 
     expect(spy).toBeCalled();
+    expect(res.headers.get("Access-Control-Allow-Origin")).toBe("*");
+    expect(res.status).toBe(200);
+  });
+
+  test("preflight requests work is called", async () => {
+    const res = await revalidateCache({
+      ...request,
+      method: "OPTIONS",
+    } as NextRequest);
+
+    expect(res.headers.get("Access-Control-Allow-Origin")).toBe("*");
+    expect(res.status).toBe(200);
   });
 
   test("doesn't allow GET requests", () => {

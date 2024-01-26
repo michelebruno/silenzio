@@ -2,7 +2,6 @@ import type { NextRequest } from "next/server";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { speak, getDocumentUrl } from "@silenzio/core";
 
-
 async function handler(request: NextRequest) {
   const data = {
     secret: null as string | null,
@@ -28,6 +27,7 @@ async function handler(request: NextRequest) {
       headers,
     });
   }
+
 
   if (request.method === "OPTIONS" || request.method === "HEAD") {
     return Response.json("Preflight run", { status: 200, headers });

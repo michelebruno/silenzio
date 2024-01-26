@@ -8,6 +8,7 @@
   "author": "Michele Bruno",
   "license": "MIT",
   "scripts": {
+    "prepare": "npm run build && npm run lint && npm run test",
     "test": "jest --coverage",
     "dev": "npm run build:cjs -- --watch",
     "lint": "eslint --fix ../next && prettier --write .",

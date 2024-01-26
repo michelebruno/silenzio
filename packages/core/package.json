@@ -13,6 +13,7 @@
     "silenzio": "./bin/silenzio.js"
   },
   "scripts": {
+    "prepare": "npm run build && npm run lint && npm run test",
     "link": "npm link @silenzio/core @silenzio/next @silenzio/types @silenzio/app-config @silenzio/sanity",
     "test": "jest --coverage",
     "dev": "yarn build:esm --watch",

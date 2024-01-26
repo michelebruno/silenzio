@@ -9,7 +9,11 @@
   "files": [
     "dist"
   ],
+  "bin": {
+    "silenzio": "./bin/silenzio.js"
+  },
   "scripts": {
+    "link": "npm link @silenzio/core @silenzio/next @silenzio/types @silenzio/app-config @silenzio/sanity",
     "test": "jest --coverage",
     "dev": "yarn build:esm --watch",
     "lint": "eslint --fix . && prettier --write .",
@@ -28,6 +32,7 @@
   "dependencies": {
     "@silenzio/app-config": "^0.0.5",
     "@silenzio/types": "^0.0.6",
+    "commander": "^11.1.0",
     "lodash": "^4.17.21"
   },
   "exports": {

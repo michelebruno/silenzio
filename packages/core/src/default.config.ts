@@ -34,4 +34,9 @@ const silenzioConfigDefault: Silenzio.Config = {
   },
 };
 
+if (process.env.NEXT_PUBLIC_PRODUCTION_HOSTNAME)
+  silenzioConfigDefault.hostname = new URL(
+    process.env.NEXT_PUBLIC_PRODUCTION_HOSTNAME
+  );
+
 export default silenzioConfigDefault;

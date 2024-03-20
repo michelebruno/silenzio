@@ -1,5 +1,5 @@
 import type { DocumentActionComponent, PluginOptions } from "sanity";
-import { getDocumentUrl, speak } from "@silenzio/core";
+import { getDocumentUrl } from "@silenzio/core";
 import revalidateCacheOnAction from "./revalidateCacheOnAction";
 
 export default function silenzioSanityPlugin(): PluginOptions {
@@ -14,12 +14,7 @@ export default function silenzioSanityPlugin(): PluginOptions {
             : originalAction
         ),
       productionUrl: async (prev, context) => {
-        let url = speak("hostname");
-
-        // If url is string, convert it to URL object
-        if (typeof url === "string") {
-          url = new URL(url);
-        }
+        const url = window.location;
 
         try {
           url.pathname = getDocumentUrl(context.document);

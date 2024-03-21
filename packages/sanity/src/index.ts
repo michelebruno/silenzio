@@ -14,7 +14,7 @@ export default function silenzioSanityPlugin(): PluginOptions {
             : originalAction
         ),
       productionUrl: async (prev, context) => {
-        const url = window.location;
+        const url = new URL(window.location.href);
 
         try {
           url.pathname = getDocumentUrl(context.document);

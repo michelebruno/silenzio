@@ -18,14 +18,19 @@ export default function revalidateCacheOnAction(
       onHandle: async () => {
         if (originalResult?.onHandle) originalResult.onHandle();
 
+        const client = context.getClient({
+          apiVersion: "2024-04-25",
+        });
+
+        const document = await client.getDocument(context.documentId!);
+
         const body = {
           secret: speak("cache.secret"),
           tags: context.schemaType,
-          document: {
-            _id: context.documentId,
-            _type: context.schemaType,
-          },
+          document,
         };
+
+        if (isDebugMode()) console.log("Revalidating cache", context, body);
 
         const domains = speak("cache.domains");
 
